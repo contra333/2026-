@@ -1,0 +1,23 @@
+mktexpk --mfmode / --bdpi 600 --mag 1+480/600 --dpi 1080 nanumgtmb8
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic
+mktextfm Pretendard
+mktextfm NanumGothic

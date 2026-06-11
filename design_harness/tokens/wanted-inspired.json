@@ -1,0 +1,135 @@
+{
+  "name": "statistics-poster-legacy-a0-portrait",
+  "status": "active",
+  "source": {
+    "figma_file": "references/design_system/Wanted Design System (Community).fig",
+    "layout_reference": "references/poster_layout/25_동계_통계학회_포스터_진군학.pptx",
+    "notes": "Active poster tokens combine the previous statistics poster layout with separated Latin, Hangul, and math typography. Hangul uses Pretendard when available and formulas use Cambria Math when available. The required poster size is exactly 841mm x 1189mm, one A0 portrait page."
+  },
+  "color": {
+    "background": "#FFFFFF",
+    "surface": "#FFFFFF",
+    "surfaceMuted": "#F3F7FC",
+    "ink": "#111111",
+    "text": "#202020",
+    "textMuted": "#555555",
+    "textSubtle": "#8A8A8A",
+    "line": "#D9E2EF",
+    "lineStrong": "#A9B7C9",
+    "primary": "#2F5597",
+    "accent": "#0070C0",
+    "footerBlue": "#096EB7",
+    "primarySoft": "#EAF2FB",
+    "primaryBorder": "#B8CBE8",
+    "statBlue": "#0070C0",
+    "statGreen": "#70AD47",
+    "statAmber": "#FFC000",
+    "statRed": "#C00000",
+    "statPurple": "#5B9BD5"
+  },
+  "typography": {
+    "fontFamily": [
+      "Calibri",
+      "Arial",
+      "sans-serif"
+    ],
+    "hangulFontFamily": [
+      "Pretendard",
+      "Pretendard Variable",
+      "Noto Sans CJK KR",
+      "Noto Sans KR",
+      "sans-serif"
+    ],
+    "mathFontFamily": [
+      "Cambria Math",
+      "Latin Modern Math",
+      "serif"
+    ],
+    "poster": {
+      "title": "56pt",
+      "subtitle": "23pt",
+      "meta": "17pt",
+      "claim": "30pt",
+      "lead": "21pt",
+      "section": "27pt",
+      "subsection": "20pt",
+      "body": "18pt",
+      "caption": "13.5pt",
+      "table": "16pt",
+      "label": "15pt",
+      "footer": "12.5pt"
+    },
+    "slides": {
+      "title": "36pt",
+      "subtitle": "20pt",
+      "section": "24pt",
+      "body": "16pt",
+      "caption": "12pt"
+    },
+    "lineHeight": {
+      "tight": 1.15,
+      "normal": 1.45,
+      "loose": 1.6
+    },
+    "weight": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 650,
+      "bold": 750
+    }
+  },
+  "spacing": {
+    "unit": "8px",
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "xxl": "48px"
+  },
+  "radius": {
+    "none": "0px",
+    "sm": "0px",
+    "md": "0px",
+    "lg": "0px"
+  },
+  "layout": {
+    "posterA0Portrait": {
+      "widthMm": 841,
+      "heightMm": 1189,
+      "marginMm": 12,
+      "columns": 2,
+      "gutterMm": 18,
+      "headerHeightMm": 156,
+      "claimBandHeightMm": 104,
+      "sectionBarHeightMm": 18,
+      "figureSlotHeightMm": 400,
+      "footerHeightMm": 30
+    },
+    "legacyReference": {
+      "originalPptxInternalSizeMm": {
+        "widthMm": 594,
+        "heightMm": 841
+      },
+      "scaleToA0": 1.414,
+      "pattern": "top title area, dark blue full-width section bars, two-column body, thin blue footer rule"
+    },
+    "slideWide": {
+      "aspectRatio": "16 / 9",
+      "columns": 12,
+      "safeMarginPx": 48
+    }
+  },
+  "chart": {
+    "series": [
+      "#0070C0",
+      "#70AD47",
+      "#FFC000",
+      "#5B9BD5",
+      "#C00000"
+    ],
+    "grid": "#D9E2EF",
+    "axis": "#555555",
+    "label": "#202020"
+  }
+}

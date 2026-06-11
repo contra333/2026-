@@ -1,0 +1,6 @@
+short_label,config_label,optimizer,val_acc,test_acc,ece,source_scope
+SGD-A,sgd_lr1e-1_wd5e-4_anchor,SGD,0.9586,0.9585,0.0298,selected5_seed0_mean_source
+SGD-B,sgd_lr1e-1_wd2e-4,SGD,0.9612,0.9546,0.0331,selected5_seed0_mean_source
+Adam,adam_lr1e-3_wd1e-4,Adam,0.9494,0.9447,0.0390,selected5_seed0_mean_source
+AdamW-B,adamw_lr5e-3_wd1e-4,AdamW,0.9528,0.9468,0.0451,selected5_seed0_mean_source
+AdamW-A,adamw_lr5e-3_wd5e-4_anchor,AdamW,0.9502,0.9437,0.0479,selected5_seed0_mean_source

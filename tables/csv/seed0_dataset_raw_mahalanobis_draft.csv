@@ -1,0 +1,5 @@
+short_label,config_label,optimizer,cifar100,tiny_imagenet,svhn,mnist,source_scope
+SGD-B,sgd_lr1e-1_wd2e-4,SGD,0.8613,0.8569,0.9729,0.9457,dataset_specific_md_confirmed
+Adam-0,adam_lr1e-3_wd0,Adam,0.6096,0.5654,0.9003,0.6301,dataset_specific_md_confirmed_supplement
+Adam,adam_lr1e-3_wd1e-4,Adam,0.5680,0.5423,0.6604,0.4416,dataset_specific_md_confirmed
+AdamW-B,adamw_lr5e-3_wd1e-4,AdamW,0.4353,0.3983,0.7828,0.2712,dataset_specific_md_confirmed

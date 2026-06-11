@@ -1,0 +1,6 @@
+short_label,config_label,optimizer,val_acc,test_acc,ece,raw_maha,nc1,interdist,geometry_diagnostic,source_scope
+SGD-A,sgd_lr1e-1_wd5e-4_anchor,SGD,0.9586,0.9585,0.0298,0.9192,0.0489,16.7966,compact_separated,selected5_seed0_confirmed_context
+SGD-B,sgd_lr1e-1_wd2e-4,SGD,0.9612,0.9546,0.0331,0.9092,0.0682,14.3289,compact_separated,selected5_seed0_confirmed_context
+Adam,adam_lr1e-3_wd1e-4,Adam,0.9494,0.9447,0.0390,0.5531,0.1874,13.4176,higher_spread,selected5_seed0_confirmed_context
+AdamW-B,adamw_lr5e-3_wd1e-4,AdamW,0.9528,0.9468,0.0451,0.4719,0.2713,5.3713,low_separation_scale_sensitive,selected5_seed0_confirmed_context
+AdamW-A,adamw_lr5e-3_wd5e-4_anchor,AdamW,0.9502,0.9437,0.0479,0.5311,0.2747,5.5291,low_separation_scale_sensitive,selected5_seed0_confirmed_context

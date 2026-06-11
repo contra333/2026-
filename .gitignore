@@ -1,0 +1,26 @@
+# Local OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*:Zone.Identifier
+
+# Local agent/tool runtime state
+.impeccable/
+.superpowers/brainstorm/
+
+# Python/cache artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Raw experiment artifacts should stay outside this poster workspace/repo.
+*.pt
+*.pth
+*.ckpt
+*.npy
+*.npz
+*.pkl
+*.pickle
+checkpoints/
+cache/
+raw/

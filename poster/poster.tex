@@ -1,0 +1,501 @@
+\documentclass[final]{article}
+
+\input{../design_harness/templates/wanted_poster_macros.tex}
+
+% Local draft layout macros for the paper-flow redesign.
+\ifPDFTeX
+  \newcommand{\PaperTitleFace}{\sffamily\bfseries}
+  \newcommand{\PaperHeaderMetaFace}{\sffamily}
+\else
+  \IfFileExists{/mnt/c/Windows/Fonts/COPRGTB.TTF}{%
+    \newfontfamily\PaperTitleFace[
+      Path=/mnt/c/Windows/Fonts/
+    ]{COPRGTB.TTF}%
+  }{%
+    \IfFontExistsTF{Copperplate Gothic Bold}{%
+      \newfontfamily\PaperTitleFace{Copperplate Gothic Bold}%
+    }{%
+      \newcommand{\PaperTitleFace}{\sffamily\bfseries}%
+    }%
+  }%
+  \IfFileExists{/mnt/c/Windows/Fonts/calibri.ttf}{%
+    \newfontfamily\PaperHeaderMetaFace[
+      Path=/mnt/c/Windows/Fonts/,
+      UprightFont=calibri.ttf,
+      BoldFont=calibrib.ttf,
+      ItalicFont=calibrii.ttf,
+      BoldItalicFont=calibriz.ttf
+    ]{Calibri}%
+  }{%
+    \IfFontExistsTF{Calibri}{%
+      \newfontfamily\PaperHeaderMetaFace{Calibri}%
+    }{%
+      \newcommand{\PaperHeaderMetaFace}{\sffamily}%
+    }%
+  }%
+\fi
+\renewcommand{\WantedSectionFont}{\PaperHeaderMetaFace\fontsize{27pt}{32pt}\selectfont\bfseries}
+\renewcommand{\WantedSubsectionFont}{\PaperHeaderMetaFace\fontsize{20pt}{27pt}\selectfont\bfseries}
+\renewcommand{\WantedLabelFont}{\PaperHeaderMetaFace\fontsize{15pt}{20pt}\selectfont\bfseries}
+
+\newcommand{\PaperHeader}[3]{%
+  \begin{minipage}[t][74mm][t]{\PosterContentWidth}
+    \vspace*{1mm}
+    \begin{minipage}[t]{590mm}
+      {\PaperTitleFace\fontsize{50pt}{58pt}\selectfont\color{WantedInk}\RaggedRight #1\par}
+      \vspace{16mm}
+      {\PaperHeaderMetaFace\fontsize{28pt}{34pt}\selectfont\color{WantedText}#2%
+        \hspace{4mm}{\fontsize{20pt}{25pt}\selectfont #3}\par}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{205mm}
+      \vspace*{15mm}
+      \centering
+      \begin{tabular}{@{}c@{\hspace{8mm}}c@{}}
+        \includegraphics[height=54mm,keepaspectratio]{../figures/한양대학교 로고.png}
+        &
+        \includegraphics[height=54mm,keepaspectratio]{../figures/통계학회 로고.png}
+      \end{tabular}
+    \end{minipage}
+    \vfill
+    {\color{WantedPrimary}\rule{\PosterContentWidth}{2.4mm}}\par
+  \end{minipage}
+  \vspace{2mm}
+}
+
+\newcommand{\PaperSection}[2]{%
+  \WantedSectionBar{#1}%
+  \vspace{4.8mm}
+  {\fontsize{18.8pt}{29pt}\selectfont\color{WantedText}\RaggedRight #2}%
+  \vspace{13.5mm}
+}
+
+\newcommand{\PaperTinySection}[2]{%
+  \WantedSectionBar{#1}%
+  \vspace{4mm}
+  {\fontsize{18pt}{26.5pt}\selectfont\color{WantedText}\RaggedRight #2}%
+  \vspace{7mm}
+}
+
+\newcommand{\PaperPlainAbstract}[1]{%
+  \vspace*{-7mm}
+  {\PaperHeaderMetaFace\fontsize{31pt}{41pt}\selectfont\color{WantedInk}\Centering Abstract\par}
+  \vspace{8.8mm}
+  {\fontsize{18.8pt}{29pt}\selectfont\color{WantedText}\RaggedRight #1}%
+  \vspace{15mm}
+}
+
+\newcommand{\PaperConceptSection}[2]{%
+  {\PaperHeaderMetaFace\fontsize{25pt}{31pt}\selectfont\bfseries\color{WantedInk}#1\par}
+  \vspace{2mm}
+  {\color{WantedAccent}\rule{62mm}{1mm}}\par
+  \vspace{4.2mm}
+  {\fontsize{18.8pt}{29pt}\selectfont\color{WantedText}\RaggedRight #2}%
+  \vspace{13.5mm}
+}
+
+\newcommand{\PaperPlainResultSection}[2]{%
+  {\PaperHeaderMetaFace\fontsize{24pt}{30pt}\selectfont\bfseries\color{WantedInk}#1\par}
+  \vspace{1.7mm}
+  {\color{WantedAccent}\rule{78mm}{0.9mm}}\par
+  \vspace{4mm}
+  {\fontsize{17.8pt}{26pt}\selectfont\color{WantedText}\RaggedRight #2}%
+  \vspace{7mm}
+}
+
+\newcommand{\PaperClaim}[1]{%
+  {\PaperHeaderMetaFace\fontsize{20.5pt}{27pt}\selectfont\bfseries\color{WantedInk}\RaggedRight #1\par}
+  \vspace{3mm}
+}
+
+\newcommand{\PaperKeyLine}[2]{%
+  \begin{minipage}[t]{50mm}
+    {\WantedLabelFont\color{WantedAccent}#1}
+  \end{minipage}%
+  \hspace{4mm}%
+  \begin{minipage}[t]{\dimexpr\linewidth-54mm\relax}
+    {\fontsize{18.2pt}{26.5pt}\selectfont\color{WantedText}\RaggedRight #2}
+  \end{minipage}\par\vspace{3mm}
+}
+
+\newcommand{\PaperCompactKeyLine}[2]{%
+  \begin{minipage}[t]{34mm}
+    {\WantedLabelFont\color{WantedAccent}#1}
+  \end{minipage}%
+  \hspace{4mm}%
+  \begin{minipage}[t]{\dimexpr\linewidth-38mm\relax}
+    {\fontsize{16.6pt}{22.5pt}\selectfont\color{WantedText}\RaggedRight #2}
+  \end{minipage}\par\vspace{1.3mm}
+}
+
+\newcommand{\PaperBullet}[1]{%
+  \begin{minipage}[t]{6mm}
+    {\fontsize{18pt}{24pt}\selectfont\color{WantedAccent}\textbullet}
+  \end{minipage}%
+  \hspace{2mm}%
+  \begin{minipage}[t]{\dimexpr\linewidth-8mm\relax}
+    {\fontsize{18.2pt}{26.5pt}\selectfont\color{WantedText}\RaggedRight #1}
+  \end{minipage}\par\vspace{1.6mm}
+}
+
+\newcommand{\PaperQuestionFocus}[1]{%
+  \vspace{3mm}
+  {\color{WantedPrimary}\rule{\linewidth}{1.1mm}}\par
+  \vspace{2.6mm}
+  {\PaperHeaderMetaFace\fontsize{15pt}{19pt}\selectfont\bfseries\color{WantedAccent}Key Question\par}
+  \vspace{1.6mm}
+  {\PaperHeaderMetaFace\fontsize{21pt}{27pt}\selectfont\bfseries\color{WantedInk}\RaggedRight #1\par}
+  \vspace{2.8mm}
+  {\color{WantedAccent}\rule{0.58\linewidth}{0.8mm}}\par
+  \vspace{3.5mm}
+}
+
+\newcommand{\PaperReliabilityMetrics}{%
+  \vspace{2.8mm}
+  {\PaperHeaderMetaFace\fontsize{17pt}{22pt}\selectfont\bfseries\color{WantedInk}Metric definitions\par}
+  \vspace{1.6mm}
+  \begin{minipage}[t]{0.49\linewidth}
+    {\WantedLabelFont\color{WantedAccent}Calibration\par}
+    \vspace{0.8mm}
+    {\fontsize{12.8pt}{16.5pt}\selectfont
+    \[
+    \begin{aligned}
+    \mathrm{acc}(B)&=\frac{1}{|B|}\sum_{i\in B}\mathbf{1}(\hat y_i=y_i),\\
+    \mathrm{conf}(B)&=\frac{1}{|B|}\sum_{i\in B}\max_k p_i(k)
+    \end{aligned}
+    \]
+    \[
+    \mathrm{ECE}=\sum_b \frac{|B_b|}{n}\,
+    |\mathrm{acc}(B_b)-\mathrm{conf}(B_b)|
+    \]}
+    {\fontsize{14.2pt}{18.8pt}\selectfont\color{WantedText}\RaggedRight
+    ECE summarizes the confidence-accuracy gap across confidence bins.}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.47\linewidth}
+    {\WantedLabelFont\color{WantedAccent}OOD ranking\par}
+    \vspace{0.8mm}
+    {\fontsize{13.8pt}{18pt}\selectfont
+    \[
+    s(x):\ \text{ID-like score}
+    \]
+    \[
+    \mathrm{AUROC}=P\{s(x_{\mathrm{ID}})>s(x_{\mathrm{OOD}})\}
+    \]}
+    {\fontsize{14.2pt}{18.8pt}\selectfont\color{WantedText}\RaggedRight
+    AUROC summarizes whether ID samples receive higher scores than OOD samples.}
+  \end{minipage}\par
+}
+
+\newcommand{\PaperResultNote}[2]{%
+  \begin{minipage}[t]{28mm}
+    {\WantedLabelFont\color{WantedAccent}#1}
+  \end{minipage}%
+  \hspace{4mm}%
+  \begin{minipage}[t]{\dimexpr\linewidth-32mm\relax}
+    {\fontsize{16.8pt}{23.5pt}\selectfont\color{WantedText}\RaggedRight #2}
+  \end{minipage}\par\vspace{1.4mm}
+}
+
+\newlength{\PaperColumnHeight}
+\setlength{\PaperColumnHeight}{950mm}
+\setlength{\PosterBodyTopSkip}{4mm}
+
+\newcommand{\PaperTwoColumns}[2]{%
+  \vspace*{\PosterBodyTopSkip}
+  \begin{minipage}[t][\PaperColumnHeight][t]{\PosterColumnWidth}
+    #1
+  \end{minipage}%
+  \hspace*{\PosterColumnGap}%
+  \begin{minipage}[t][\PaperColumnHeight][t]{\PosterColumnWidth}
+    #2
+  \end{minipage}%
+}
+
+\newcommand{\PaperTightTable}[2]{%
+  \begingroup
+    \fontsize{14.2pt}{19pt}\selectfont
+    \color{WantedText}
+    \setlength{\tabcolsep}{4.5pt}
+    \renewcommand{\arraystretch}{1.18}
+    #1
+    \par\vspace{2mm}
+    {\WantedCaptionFont\color{WantedMuted}#2}
+  \endgroup
+}
+
+\newcommand{\PaperMicroTable}[2]{%
+  \begingroup
+    \fontsize{12.2pt}{16.5pt}\selectfont
+    \color{WantedText}
+    \setlength{\tabcolsep}{2.6pt}
+    \renewcommand{\arraystretch}{1.13}
+    #1
+    \par\vspace{1.6mm}
+    {\WantedCaptionFont\color{WantedMuted}#2}
+  \endgroup
+}
+
+\newcommand{\CalibrationMiniDiagram}{%
+  \begin{tikzpicture}[x=13mm,y=13mm]
+    \draw[WantedLineStrong, line width=0.55pt] (0,0) -- (4.2,0);
+    \draw[WantedLineStrong, line width=0.55pt] (0,0) -- (0,4.1);
+    \draw[WantedLine, line width=0.45pt] (0,0) -- (4,4);
+    \foreach \x/\h in {0.45/0.35,1.15/0.75,1.85/1.25,2.55/1.85,3.25/2.35} {
+      \fill[WantedStatBlue!70] (\x,0) rectangle ++(0.38,\h);
+      \draw[WantedStatRed, line width=0.9pt] (\x,{\x+0.35}) -- ++(0.38,0);
+    }
+    \node[font=\fontsize{7.5pt}{8.5pt}\selectfont, text=WantedMuted] at (2.1,-0.45) {confidence};
+    \node[font=\fontsize{7.5pt}{8.5pt}\selectfont, text=WantedMuted, rotate=90] at (-0.5,2.05) {accuracy};
+    \node[font=\fontsize{7.5pt}{8.5pt}\selectfont, text=WantedAccent, anchor=west] at (2.5,3.35) {ideal};
+    \node[font=\fontsize{7.5pt}{8.5pt}\selectfont, text=WantedStatRed, anchor=west] at (2.5,2.75) {overconfident};
+  \end{tikzpicture}%
+}
+
+\newcommand{\OODMiniDiagram}{%
+  \begin{tikzpicture}[x=12mm,y=12mm]
+    \fill[WantedPrimarySoft] (0,0) ellipse (1.35 and 1.0);
+    \foreach \x/\y in {-0.9/0.1,-0.5/0.55,-0.35/-0.35,0.15/0.3,0.45/-0.15,0.75/0.45,0.95/-0.45} {
+      \fill[WantedStatBlue] (\x,\y) circle (0.075);
+    }
+    \draw[WantedAccent, line width=0.8pt] (0,0) ellipse (1.35 and 1.0);
+    \fill[WantedStatRed] (1.05,0.12) circle (0.12);
+    \node[font=\fontsize{7.5pt}{8.5pt}\selectfont, text=WantedStatRed, anchor=west] at (1.2,0.18) {OOD scored ID-like};
+    \draw[WantedStatRed, line width=0.6pt, ->] (1.18,0.12) -- (0.98,0.12);
+    \node[font=\fontsize{7.5pt}{8.5pt}\selectfont, text=WantedAccent] at (0,-1.25) {ID feature region};
+    \node[font=\fontsize{7.5pt}{8.5pt}\selectfont, text=WantedMuted, anchor=west] at (-1.35,1.35) {$s(x)$ should rank ID $>$ OOD};
+  \end{tikzpicture}%
+}
+
+\newcommand{\EquationLine}[2]{%
+  \begin{minipage}[t]{42mm}
+    {\WantedLabelFont\color{WantedAccent}#1}
+  \end{minipage}%
+  \hspace{3mm}%
+  \begin{minipage}[t]{\dimexpr\linewidth-45mm\relax}
+    {\fontsize{16pt}{22pt}\selectfont #2}
+  \end{minipage}\par\vspace{2mm}
+}
+
+\newcommand{\OptimizerMechanismSketch}{%
+  \vspace{0.8mm}
+  {\WantedLabelFont\color{WantedAccent}Feature distribution view\par}
+  \vspace{0.6mm}
+  {\fontsize{17.2pt}{23pt}\selectfont\color{WantedText}\RaggedRight
+  마지막 표현을 $H=h_\theta(X)$로 보면, optimizer는 각 class 조건부분포
+  $H\mid Y=k$의 위치와 산포를 만드는 implicit bias로 작용한다.\par}
+  \vspace{0.6mm}
+  {\fontsize{18pt}{23pt}\selectfont
+  \[
+  H\mid Y=k:\quad
+  \mu_k=\mathbb{E}[H\mid Y=k],\qquad
+  \Sigma_k=\operatorname{Var}(H\mid Y=k)
+  \]}
+  \vspace{-2mm}
+  {\fontsize{16.4pt}{21pt}\selectfont\color{WantedText}\RaggedRight
+  Feature detectors see within-class dispersion, covariance scale/anisotropy, and between-class separation.\par}
+  \vspace{2.5mm}
+  {\WantedLabelFont\color{WantedAccent}Weight-decay coupling mechanism\par}
+  \vspace{0.6mm}
+  {\fontsize{18pt}{23pt}\selectfont
+  \[
+  z=W h_\theta(x),\quad
+  s_t=W_t^\top\mathbf{1}_K,\quad
+  a_t=\frac{1}{K}\|s_t\|_2^2,\quad
+  (\nabla_W L_{\mathrm{CE}})^\top\mathbf{1}_K=0
+  \]}
+  \vspace{-2.5mm}
+  \begin{minipage}[t]{0.49\linewidth}
+    {\color{WantedPrimary}\rule{\linewidth}{0.55mm}}\par
+    \vspace{1mm}
+    {\PaperHeaderMetaFace\fontsize{15.4pt}{19pt}\selectfont\bfseries\color{WantedInk}SGD/L2: centering contraction\par}
+    \vspace{-1.5mm}
+    {\fontsize{18pt}{23pt}\selectfont
+    \[
+    \begin{aligned}
+    s_{t+1}&=(1-\eta\lambda)s_t\\
+    a_{t+1}&\approx(1-\eta\lambda)^2a_t
+    \end{aligned}
+    \]}
+    \vspace{-1mm}
+    {\fontsize{14.6pt}{19pt}\selectfont\color{WantedText}\RaggedRight CE gradient row-sum이 0이므로 class-direction centering statistic이 수축한다.\par}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.49\linewidth}
+    {\color{WantedAccent}\rule{\linewidth}{0.55mm}}\par
+    \vspace{1mm}
+    {\PaperHeaderMetaFace\fontsize{15.4pt}{19pt}\selectfont\bfseries\color{WantedInk}Adam/L2 vs AdamW: distribution path split\par}
+    \vspace{-1.5mm}
+    {\fontsize{18pt}{23pt}\selectfont
+    \[
+    \begin{aligned}
+    \text{Adam/L2: }& D_t(\nabla L+\lambda W_t)\\
+    \text{AdamW: }& D_t\nabla L\ +\ \text{outside shrinkage}\\
+    &(D_t\nabla L)^\top\mathbf{1}_K\not\equiv 0
+    \end{aligned}
+    \]}
+    \vspace{-1mm}
+    {\fontsize{14.6pt}{19pt}\selectfont\color{WantedText}\RaggedRight 좌표별 scaling이 classifier centering과 feature 분포 경로를 바꿀 수 있다.\par}
+  \end{minipage}\par
+  \vspace{4.2mm}
+}
+
+\begin{document}
+\begin{WantedPoster}
+
+\PaperHeader
+  {Optimizer-Induced Feature Geometry Shapes\\Post-Hoc OOD Detection Reliability}
+  {GunHak Jin ∙ HyeYoung Jung}
+  {Department of Mathematical Data Science, Hanyang University}
+
+\PaperTwoColumns
+{%
+  \PaperPlainAbstract{%
+    ID accuracy는 정답률을 요약하지만, confidence calibration과 distribution-shift robustness를 보장하지 않는다.
+    우리는 CIFAR-10 WRN-28-10을 SGD, Adam, AdamW와 LR–weight decay grid로 학습하고,
+    ID validation accuracy만으로 선택한 후보들의 calibration, post-hoc OOD detection, feature geometry를 진단한다.
+    Seed0 diagnostic draft는 비슷한 accuracy band 안에서도 raw feature OOD reliability가 갈라질 수 있으며,
+    L2-normalized controls가 그 차이를 feature norm/covariance-scale geometry와 연결해 볼 수 있음을 시사한다.
+  }
+  \vspace{2mm}
+
+  \PaperConceptSection{Introduction: Why Accuracy Is Not Reliability}{%
+    \PaperClaim{Accuracy summarizes correctness; reliability asks more.}
+    \PaperBullet{ID accuracy는 모델이 test distribution에서 정답을 얼마나 자주 맞히는지를 요약한다.}
+    \PaperBullet{실제 배포 reliability는 confidence가 믿을 만한지, distribution-shift input을 정상 입력처럼 받아들이지 않는지까지 함께 확인해야 한다.}
+    \PaperBullet{비슷한 ID accuracy라도 optimizer와 LR–weight decay 선택이 penultimate feature geometry를 다르게 만들면 post-hoc detector의 score landscape도 달라질 수 있다.}
+    \PaperBullet{따라서 optimizer를 단순한 training speed 선택이 아니라 calibration과 feature-based OOD reliability를 바꿀 수 있는 실험 요인으로 다룬다.}
+    \PaperQuestionFocus{비슷한 Accuracy라도 optimizer가 만든 feature geometry가 모델의 신뢰성에 어떤 영향을 미치는가?}
+  }
+  \vspace{8mm}
+
+  \PaperConceptSection{Reliability Failure: Miscalibration and OOD Acceptance}{%
+    \PaperClaim{신뢰성 실패는 높은 confidence를 믿고 넘기거나 OOD 입력을 정상 입력처럼 넘기는 순간 downstream decision을 흔든다.}
+    \PaperBullet{Confidence는 보통 모델이 선택한 class의 softmax probability이고, actual accuracy는 비슷한 confidence bin 안에서 실제로 정답이었던 비율이다.}
+    \PaperBullet{Confidence와 actual accuracy가 크게 다르면 miscalibration이며, confidence-threshold 기반 승인/보류 결정이 불안정해진다.}
+    \PaperBullet{Post-hoc OOD detector는 score $s(x)$로 ID sample에는 높은 ID-like score를, OOD sample에는 낮은 score를 주어야 한다.}
+    \PaperBullet{OOD sample이 높은 ID-like score를 받으면, 지원하지 않는 입력도 정상 class prediction으로 downstream decision에 넘어갈 수 있다.}
+    \vspace{2.5mm}
+    \includegraphics[width=0.97\linewidth]{../figures/final/fig1_reliability_failure_concept.png}\par
+    \vspace{1.6mm}
+    {\WantedCaptionFont\color{WantedMuted}\RaggedRight
+    \textbf{Figure 1.} Left: confidence no longer matches empirical accuracy, destabilizing threshold decisions. Right: an OOD input receives a high ID-like score and can be passed downstream as if it were ID.\par}
+    \PaperReliabilityMetrics
+  }
+  \vspace{8mm}
+
+  \PaperConceptSection{Optimizers: Update Rules Shift Feature Distributions}{%
+    \PaperClaim{최적화 방법은 마지막 표현층의 class-conditional feature distribution을 바꿀 수 있다.}
+    \OptimizerMechanismSketch
+    \PaperKeyLine{Implication}{Accuracy가 비슷해도 class mean separation, within-class dispersion, covariance scale/anisotropy, classifier-feature alignment가 달라질 수 있다.}
+    \PaperKeyLine{Boundary}{OOD reliability link is evaluated by our post-hoc diagnostics.}
+  }
+  \vfill
+
+  \PaperConceptSection{Experiment}{%
+    \PaperClaim{Selection uses ID validation accuracy only.}
+    \begin{minipage}[t]{0.49\linewidth}
+      \PaperCompactKeyLine{ID / model}{CIFAR-10 / WRN-28-10}
+      \PaperCompactKeyLine{Factors}{SGD, Adam, AdamW $\times$ LR-WD grid}
+      \PaperCompactKeyLine{Selection}{ID validation accuracy only}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.49\linewidth}
+      \PaperCompactKeyLine{Diagnostics}{ECE, OOD AUROC, feature distribution metrics}
+      \PaperCompactKeyLine{OOD}{CIFAR-100, TinyImageNet, SVHN, MNIST}
+      \PaperCompactKeyLine{Status}{Seed0 diagnostic draft}
+    \end{minipage}
+  }
+}
+{%
+  \PaperTinySection{Figure 2. Accuracy-Matched Reliability Split}{%
+    \includegraphics[width=0.94\linewidth]{../figures/source/fig1_seed0_reliability_scatter_draft.pdf}
+
+    \vspace{1mm}
+    {\WantedCaptionFont\color{WantedMuted}Seed0 diagnostic draft: ECE and raw Mahalanobis AUROC against ID validation accuracy. Calibration mismatch and raw feature OOD reliability can split within a similar ID accuracy band.}
+
+    \vspace{3mm}
+    \PaperResultNote{Read}{Similar ID validation accuracy does not imply similar reliability.}
+    \PaperResultNote{Evidence}{Seed0 candidates in a competitive accuracy band split in ECE and raw Mahalanobis AUROC.}
+    \PaperResultNote{Boundary}{Diagnostic draft; repeated-seed summaries will replace this view.}
+  }
+  \vfill
+
+  \PaperTinySection{Table 1. Dataset-Specific Raw Mahalanobis AUROC}{%
+    \PaperTightTable{%
+      \begin{tabularx}{\linewidth}{@{}l l Z Z Z Z@{}}
+        \toprule
+        Config & Optimizer & CIFAR-100 & TinyImageNet & SVHN & MNIST \\
+        \midrule
+        SGD-B & SGD & 0.861 & 0.857 & 0.973 & 0.946 \\
+        Adam-0 & Adam & 0.610 & 0.565 & 0.900 & 0.630 \\
+        Adam & Adam & 0.568 & 0.542 & 0.660 & 0.442 \\
+        AdamW-B & AdamW & 0.435 & 0.398 & 0.783 & 0.271 \\
+        \bottomrule
+      \end{tabularx}%
+    }{Dataset-specific raw Mahalanobis AUROC for four confirmed seed0 representative rows. Higher is better. Current table is a seed0 diagnostic draft and will be replaced by repeated-seed summaries.}
+
+    \vspace{3mm}
+    \PaperResultNote{Read}{Raw Mahalanobis AUROC differs by OOD dataset and config.}
+    \PaperResultNote{Evidence}{Confirmed seed0 representative rows show large dataset-specific drops for Adam/AdamW rows relative to SGD-B.}
+    \PaperResultNote{Boundary}{Four directly confirmed representative rows only; no seed-averaged optimizer ranking claim.}
+  }
+  \vfill
+
+  \PaperTinySection{Table 2. Geometry Summary}{%
+    \PaperMicroTable{%
+      \begin{tabularx}{\linewidth}{@{}l l Z Z Z Z Z Y@{}}
+        \toprule
+        Config & Opt & Val/Test & ECE & Raw Maha & NC1 & InterDist & Geom. diag. \\
+        \midrule
+        SGD-A & SGD & 95.86/95.85 & 2.98 & 0.919 & 0.049 & 16.80 & compact \\
+        SGD-B & SGD & 96.12/95.46 & 3.31 & 0.909 & 0.068 & 14.33 & compact \\
+        Adam & Adam & 94.94/94.47 & 3.90 & 0.553 & 0.187 & 13.42 & spread $\uparrow$ \\
+        AdamW-B & AdamW & 95.28/94.68 & 4.51 & 0.472 & 0.271 & 5.37 & separation $\downarrow$ \\
+        AdamW-A & AdamW & 95.02/94.37 & 4.79 & 0.531 & 0.275 & 5.53 & separation $\downarrow$ \\
+        \bottomrule
+      \end{tabularx}%
+    }{Geometry diagnostics for selected accuracy-matched configs. Lower NC1 and larger InterDist generally indicate more compact and separated class geometry. Additional norm/covariance diagnostics are included when confirmed.}
+
+    \vspace{3mm}
+    \PaperResultNote{Read}{Reliability split is accompanied by different penultimate geometry.}
+    \PaperResultNote{Evidence}{Higher NC1 indicates larger within-class spread relative to separation; smaller InterDist indicates weaker class-mean separation.}
+    \PaperResultNote{Implication}{Distance/covariance-based detectors can see a different score landscape even when ID accuracy is similar.}
+  }
+  \vfill
+
+  \PaperTinySection{Figure 3. Raw-to-L2 Recovery Suggests Norm/Scale Sensitivity}{%
+    \includegraphics[width=0.94\linewidth]{../figures/source/fig2_seed0_raw_to_l2_recovery_draft.pdf}
+
+    \vspace{1mm}
+    {\WantedCaptionFont\color{WantedMuted}Raw-to-L2 recovery suggests norm/covariance-scale sensitivity. L2-normalized controls reduce feature-scale effects while preserving angular information.}
+
+    \vspace{3mm}
+    \PaperResultNote{Read}{Raw-to-L2 recovery suggests norm/scale sensitivity.}
+    \PaperResultNote{Evidence}{L2-normalized controls reduce feature-scale effects while preserving angular information.}
+    \PaperResultNote{Boundary}{Diagnostic control only; not a claim that L2 normalization is the final detector solution.}
+  }
+  \vfill
+
+  \PaperPlainResultSection{Mechanism Diagnostic and Poster Conclusion}{%
+    \PaperClaim{Detector reliability depends on the geometry it sees, not the optimizer name directly.}
+    \PaperResultNote{Mechanism}{Raw Mahalanobis uses class means and covariance-based distance; raw kNN uses neighborhood distance.}
+    \PaperResultNote{Sensitivity}{Both can change with feature norms, class separation, covariance anisotropy, and effective rank.}
+    \PaperResultNote{Conclusion}{Accuracy is necessary but not sufficient. ID-validation-matched models can show different calibration, raw feature OOD reliability, and feature geometry profiles.}
+    \PaperResultNote{Boundary}{Seed0 diagnostic evidence; not a causal proof or seed-averaged conclusion.}
+  }
+  \vfill
+
+  \PaperPlainResultSection{Future Work}{%
+    \PaperBullet{Adam-AdamW interpolation: coupled/decoupled weight decay 비율을 연속적으로 조정한다.}
+    \PaperBullet{Dataset / architecture expansion: CIFAR-10 WRN-28-10 밖에서도 패턴을 확인한다.}
+    \PaperBullet{Other training methods: SAM, Mixup 등이 feature norm/covariance scale과 detector reliability를 바꾸는지 확장한다.}
+  }
+}
+
+\WantedFooter
+  {Seed0 diagnostic draft. Main claims avoid seed-averaged consistency language until selected seed0/1/2 aggregation is imported.}
+  {Poster source: poster/poster.tex}
+
+\end{WantedPoster}
+\end{document}
