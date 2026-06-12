@@ -1,8 +1,8 @@
 \documentclass[final]{article}
 
-\input{../design_harness/templates/wanted_poster_macros.tex}
+\input{poster_style.tex}
 
-% Local draft layout macros for the paper-flow redesign.
+% Local layout macros for the paper-flow redesign.
 \ifPDFTeX
   \newcommand{\PaperTitleFace}{\sffamily\bfseries}
   \newcommand{\PaperHeaderMetaFace}{\sffamily}
@@ -79,19 +79,17 @@
 
 \newcommand{\PaperPlainAbstract}[1]{%
   \vspace*{-7mm}
-  {\PaperHeaderMetaFace\fontsize{31pt}{41pt}\selectfont\color{WantedInk}\Centering Abstract\par}
-  \vspace{8.8mm}
+  \WantedSectionBar{Abstract}%
+  \vspace{4.8mm}
   {\fontsize{18.8pt}{29pt}\selectfont\color{WantedText}\RaggedRight #1}%
-  \vspace{15mm}
+  \vspace{12mm}
 }
 
 \newcommand{\PaperConceptSection}[2]{%
-  {\PaperHeaderMetaFace\fontsize{25pt}{31pt}\selectfont\bfseries\color{WantedInk}#1\par}
-  \vspace{2mm}
-  {\color{WantedAccent}\rule{62mm}{1mm}}\par
+  \WantedSectionBar{#1}%
   \vspace{4.2mm}
-  {\fontsize{18.8pt}{29pt}\selectfont\color{WantedText}\RaggedRight #2}%
-  \vspace{13.5mm}
+  {\fontsize{18.4pt}{27.5pt}\selectfont\color{WantedText}\RaggedRight #2}%
+  \vspace{10.5mm}
 }
 
 \newcommand{\PaperPlainResultSection}[2]{%
@@ -105,6 +103,14 @@
 
 \newcommand{\PaperClaim}[1]{%
   {\PaperHeaderMetaFace\fontsize{20.5pt}{27pt}\selectfont\bfseries\color{WantedInk}\RaggedRight #1\par}
+  \vspace{3mm}
+}
+
+\newcommand{\PaperSubBlockTitle}[1]{%
+  \vspace{5mm}
+  {\PaperHeaderMetaFace\fontsize{20pt}{25pt}\selectfont\bfseries\color{WantedInk}\RaggedRight #1\par}
+  \vspace{1.4mm}
+  {\color{WantedAccent}\rule{70mm}{0.85mm}}\par
   \vspace{3mm}
 }
 
@@ -126,6 +132,16 @@
   \begin{minipage}[t]{\dimexpr\linewidth-38mm\relax}
     {\fontsize{16.6pt}{22.5pt}\selectfont\color{WantedText}\RaggedRight #2}
   \end{minipage}\par\vspace{1.3mm}
+}
+
+\newcommand{\PaperFailureLine}[2]{%
+  \begin{minipage}[t]{62mm}
+    {\WantedLabelFont\color{WantedAccent}#1}
+  \end{minipage}%
+  \hspace{4mm}%
+  \begin{minipage}[t]{\dimexpr\linewidth-66mm\relax}
+    {\fontsize{17.2pt}{24pt}\selectfont\color{WantedText}\RaggedRight #2}
+  \end{minipage}\par\vspace{1.7mm}
 }
 
 \newcommand{\PaperBullet}[1]{%
@@ -197,8 +213,18 @@
   \end{minipage}\par\vspace{1.4mm}
 }
 
+\newcommand{\PaperRightBullet}[1]{%
+  \begin{minipage}[t]{5mm}
+    {\fontsize{15.6pt}{20.5pt}\selectfont\color{WantedAccent}\textbullet}
+  \end{minipage}%
+  \hspace{2mm}%
+  \begin{minipage}[t]{\dimexpr\linewidth-7mm\relax}
+    {\fontsize{15.6pt}{20.5pt}\selectfont\color{WantedText}\RaggedRight #1}
+  \end{minipage}\par\vspace{1.35mm}
+}
+
 \newlength{\PaperColumnHeight}
-\setlength{\PaperColumnHeight}{950mm}
+\setlength{\PaperColumnHeight}{1040mm}
 \setlength{\PosterBodyTopSkip}{4mm}
 
 \newcommand{\PaperTwoColumns}[2]{%
@@ -277,67 +303,214 @@
   \end{minipage}\par\vspace{2mm}
 }
 
+\newcommand{\OptimizerFeatureOODDiagram}{%
+  \vspace{1.5mm}
+  \begin{center}
+  \resizebox{0.98\linewidth}{!}{%
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    \node[
+      draw=WantedPrimary,
+      fill=WantedPrimarySoft,
+      rounded corners=3mm,
+      line width=0.8pt,
+      align=center,
+      text width=68mm,
+      minimum height=22mm,
+      font=\sffamily\bfseries\fontsize{13pt}{16pt}\selectfont
+    ] (opt) at (34,0) {Optimizer\\update rule};
+
+    \node[
+      draw=WantedAccent,
+      fill=white,
+      rounded corners=3mm,
+      line width=0.8pt,
+      align=center,
+      text width=82mm,
+      minimum height=22mm,
+      font=\sffamily\bfseries\fontsize{13pt}{16pt}\selectfont
+    ] (dist) at (132,0) {Feature distribution\\$H\mid Y=k:\;(\mu_k,\Sigma_k,\|h\|)$};
+
+    \node[
+      draw=WantedPrimary,
+      fill=white,
+      rounded corners=3mm,
+      line width=0.8pt,
+      align=center,
+      text width=74mm,
+      minimum height=22mm,
+      font=\sffamily\bfseries\fontsize{13pt}{16pt}\selectfont
+    ] (det) at (232,0) {Feature detector\\Maha / kNN / GMM};
+
+    \node[
+      draw=WantedStatRed,
+      fill=white,
+      rounded corners=3mm,
+      line width=0.8pt,
+      align=center,
+      text width=72mm,
+      minimum height=22mm,
+      font=\sffamily\bfseries\fontsize{13pt}{16pt}\selectfont
+    ] (ood) at (326,0) {OOD ranking\\score changes};
+
+    \draw[->, line width=1.2pt, color=WantedPrimary] (opt.east) -- (dist.west);
+    \draw[->, line width=1.2pt, color=WantedAccent] (dist.east) -- (det.west);
+    \draw[->, line width=1.2pt, color=WantedStatRed] (det.east) -- (ood.west);
+
+    \node[align=center,text=WantedMuted,font=\sffamily\fontsize{10.5pt}{13pt}\selectfont] at (83,-18) {implicit bias};
+    \node[align=center,text=WantedMuted,font=\sffamily\fontsize{10.5pt}{13pt}\selectfont] at (181,-18) {detector reads distribution};
+    \node[align=center,text=WantedMuted,font=\sffamily\fontsize{10.5pt}{13pt}\selectfont] at (279,-18) {score landscape shifts};
+  \end{tikzpicture}}
+  \end{center}
+  \vspace{1.2mm}
+}
+
 \newcommand{\OptimizerMechanismSketch}{%
-  \vspace{0.8mm}
-  {\WantedLabelFont\color{WantedAccent}Feature distribution view\par}
-  \vspace{0.6mm}
-  {\fontsize{17.2pt}{23pt}\selectfont\color{WantedText}\RaggedRight
-  마지막 표현을 $H=h_\theta(X)$로 보면, optimizer는 각 class 조건부분포
-  $H\mid Y=k$의 위치와 산포를 만드는 implicit bias로 작용한다.\par}
-  \vspace{0.6mm}
-  {\fontsize{18pt}{23pt}\selectfont
+  \OptimizerFeatureOODDiagram
+
+  \PaperSubBlockTitle{Feature distribution}
+
+  {\fontsize{16.4pt}{21.2pt}\selectfont\color{WantedText}\RaggedRight
+  마지막 표현층의 geometry를 class-conditional feature distribution으로 요약한다.
+  Let $X$ be an input, $Y\in\{1,\ldots,K\}$ its ID class label, and $H=h_\theta(X)\in\mathbb{R}^p$ the penultimate feature.
+  For class $k$, $H\mid Y=k$ is summarized by its center, spread, anisotropy, and norm scale.\par}
+
+  \vspace{0.5mm}
+  {\fontsize{16.8pt}{21.5pt}\selectfont
   \[
-  H\mid Y=k:\quad
+  H\mid Y=k,\qquad
   \mu_k=\mathbb{E}[H\mid Y=k],\qquad
-  \Sigma_k=\operatorname{Var}(H\mid Y=k)
+  \Sigma_k=\mathbb{E}\{(H-\mu_k)(H-\mu_k)^\top\mid Y=k\}.
   \]}
   \vspace{-2mm}
-  {\fontsize{16.4pt}{21pt}\selectfont\color{WantedText}\RaggedRight
-  Feature detectors see within-class dispersion, covariance scale/anisotropy, and between-class separation.\par}
-  \vspace{2.5mm}
-  {\WantedLabelFont\color{WantedAccent}Weight-decay coupling mechanism\par}
-  \vspace{0.6mm}
-  {\fontsize{18pt}{23pt}\selectfont
-  \[
-  z=W h_\theta(x),\quad
-  s_t=W_t^\top\mathbf{1}_K,\quad
-  a_t=\frac{1}{K}\|s_t\|_2^2,\quad
-  (\nabla_W L_{\mathrm{CE}})^\top\mathbf{1}_K=0
-  \]}
-  \vspace{-2.5mm}
-  \begin{minipage}[t]{0.49\linewidth}
-    {\color{WantedPrimary}\rule{\linewidth}{0.55mm}}\par
-    \vspace{1mm}
-    {\PaperHeaderMetaFace\fontsize{15.4pt}{19pt}\selectfont\bfseries\color{WantedInk}SGD/L2: centering contraction\par}
-    \vspace{-1.5mm}
-    {\fontsize{18pt}{23pt}\selectfont
-    \[
-    \begin{aligned}
-    s_{t+1}&=(1-\eta\lambda)s_t\\
-    a_{t+1}&\approx(1-\eta\lambda)^2a_t
-    \end{aligned}
-    \]}
+  {\fontsize{14.6pt}{18.8pt}\selectfont\color{WantedText}\RaggedRight
+  Here $\mu_k$ is the class center, $\Sigma_k$ describes within-class spread/anisotropy, and $\|H\|_2$ gives the radial feature scale.\par}
+
+  \vspace{-1mm}
+  \PaperSubBlockTitle{Feature-based detectors read this distribution}
+
+  \begin{minipage}[t]{0.32\linewidth}
+    {\WantedLabelFont\color{WantedAccent}Mahalanobis\par}
     \vspace{-1mm}
-    {\fontsize{14.6pt}{19pt}\selectfont\color{WantedText}\RaggedRight CE gradient row-sum이 0이므로 class-direction centering statistic이 수축한다.\par}
+    {\fontsize{11.7pt}{14.6pt}\selectfont
+    \[
+    S_{\mathrm{Maha}}(x)=
+    -\min_k (h-\mu_k)^\top
+    \Sigma^{-1}(h-\mu_k)
+    \]}
+    \vspace{-3mm}
+    {\fontsize{12.6pt}{15.8pt}\selectfont\color{WantedText}\RaggedRight
+    High score: $h$ lies close to some class mean under the pooled covariance ellipsoid.\par}
   \end{minipage}%
   \hfill
-  \begin{minipage}[t]{0.49\linewidth}
-    {\color{WantedAccent}\rule{\linewidth}{0.55mm}}\par
+  \begin{minipage}[t]{0.30\linewidth}
+    {\WantedLabelFont\color{WantedAccent}kNN\par}
+    \vspace{-1mm}
+    {\fontsize{11.7pt}{14.6pt}\selectfont
+    \[
+    S_{\mathrm{kNN}}(x)=
+    -d_k(h,\mathcal{H}_{\mathrm{ID}})
+    \]}
+    \vspace{-3mm}
+    {\fontsize{12.6pt}{15.8pt}\selectfont\color{WantedText}\RaggedRight
+    High score: $h$ has nearby neighbors in the ID feature bank $\mathcal{H}_{\rm ID}$.\par}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.34\linewidth}
+    {\WantedLabelFont\color{WantedAccent}DDU-style GMM\par}
+    \vspace{-1mm}
+    {\fontsize{11.7pt}{14.6pt}\selectfont
+    \[
+    S_{\mathrm{GMM}}(x)=
+    \log\sum_k \pi_k \mathcal{N}(h\mid \mu_k,\Sigma_k)
+    \]}
+    \vspace{-3mm}
+    {\fontsize{12.6pt}{15.8pt}\selectfont\color{WantedText}\RaggedRight
+    High score: $h$ has high likelihood under the fitted class-conditional Gaussian mixture.\par}
+  \end{minipage}\par
+
+  \vspace{2.4mm}
+  {\fontsize{16.2pt}{21pt}\selectfont\color{WantedText}\RaggedRight
+  Thus, changing $\mu_k$, $\Sigma_k$, class separation, or feature norm can change the OOD ranking even with the same detector formula.\par}
+
+  \PaperSubBlockTitle{Optimizer mechanism: update rules shape geometry}
+
+  {\fontsize{15.2pt}{19pt}\selectfont
+  \[
+  z=W h_\theta(x),\quad
+  g_t=\nabla_{W_t}L_{\rm CE},\quad
+  s_t=W_t^\top\mathbf{1}_K,\quad
+  a_t=\frac{1}{K}\|s_t\|_2^2,
+  \quad
+  g_t^\top\mathbf{1}_K=0.
+  \]}
+  \vspace{-3mm}
+  {\fontsize{13.8pt}{17.4pt}\selectfont\color{WantedText}\RaggedRight
+  $s_t$ is the classifier row-sum direction; small $a_t$ means that classifier rows are centered.
+  $D_t$ denotes Adam's coordinate-wise adaptive scaling.\par}
+
+  \vspace{2.2mm}
+  \begin{minipage}[t]{0.315\linewidth}
+    {\color{WantedPrimary}\rule{\linewidth}{0.55mm}}\par
     \vspace{1mm}
-    {\PaperHeaderMetaFace\fontsize{15.4pt}{19pt}\selectfont\bfseries\color{WantedInk}Adam/L2 vs AdamW: distribution path split\par}
-    \vspace{-1.5mm}
-    {\fontsize{18pt}{23pt}\selectfont
+    {\PaperHeaderMetaFace\fontsize{14pt}{17pt}\selectfont\bfseries\color{WantedInk}SGD/L2\par}
+    \vspace{-2mm}
+    {\fontsize{10.9pt}{13.4pt}\selectfont
     \[
     \begin{aligned}
-    \text{Adam/L2: }& D_t(\nabla L+\lambda W_t)\\
-    \text{AdamW: }& D_t\nabla L\ +\ \text{outside shrinkage}\\
-    &(D_t\nabla L)^\top\mathbf{1}_K\not\equiv 0
+    V_{t+1}&=\beta V_t+g_t,\\
+    W_{t+1}&=(1-\eta\lambda)W_t-\eta V_{t+1}.
     \end{aligned}
     \]}
-    \vspace{-1mm}
-    {\fontsize{14.6pt}{19pt}\selectfont\color{WantedText}\RaggedRight 좌표별 scaling이 classifier centering과 feature 분포 경로를 바꿀 수 있다.\par}
+    \vspace{-3mm}
+    {\fontsize{12.1pt}{15.1pt}\selectfont\color{WantedText}\RaggedRight
+    Because $g_t^\top\mathbf{1}_K=0$, weight decay contracts the row-sum component:\par}
+    \vspace{-2mm}
+    {\fontsize{10.8pt}{13.2pt}\selectfont
+    \[
+    s_{t+1}\approx(1-\eta\lambda)s_t.
+    \]}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.315\linewidth}
+    {\color{WantedAccent}\rule{\linewidth}{0.55mm}}\par
+    \vspace{1mm}
+    {\PaperHeaderMetaFace\fontsize{14pt}{17pt}\selectfont\bfseries\color{WantedInk}Adam/L2\par}
+    \vspace{-2mm}
+    {\fontsize{10.9pt}{13.4pt}\selectfont
+    \[
+    \begin{aligned}
+    g_t^{\rm L2}&=g_t+\lambda W_t,\\
+    W_{t+1}&=W_t-\eta D_tg_t^{\rm L2}.
+    \end{aligned}
+    \]}
+    \vspace{-3mm}
+    {\fontsize{12.1pt}{15.1pt}\selectfont\color{WantedText}\RaggedRight
+    The decay term is inside the adaptive direction; in the Adam-like/sign simplification, this can alter the row-sum trajectory toward centering.\par}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.315\linewidth}
+    {\color{WantedStatRed}\rule{\linewidth}{0.55mm}}\par
+    \vspace{1mm}
+    {\PaperHeaderMetaFace\fontsize{14pt}{17pt}\selectfont\bfseries\color{WantedInk}AdamW\par}
+    \vspace{-2mm}
+    {\fontsize{10.9pt}{13.4pt}\selectfont
+    \[
+    W_{t+1}=W_t-\eta D_tg_t-\eta\lambda W_t.
+    \]
+    \[
+    (D_tg_t)^\top\mathbf{1}_K\not\equiv0.
+    \]}
+    \vspace{-4mm}
+    {\fontsize{12.1pt}{15.1pt}\selectfont\color{WantedText}\RaggedRight
+    Decoupled decay shrinks weights outside the adaptive direction and may not cancel this drift.\par}
   \end{minipage}\par
-  \vspace{4.2mm}
+
+  \vspace{3mm}
+  \PaperKeyLine{Step 1}{CE gradients are row-sum zero, so SGD/L2 mainly contracts the classifier row-sum $s_t$.}
+  \PaperKeyLine{Step 2}{Adaptive scaling can turn a centered gradient into a non-centered update; coupled and decoupled weight decay then follow different paths.}
+  \PaperKeyLine{Step 3}{NC2/NC3 require classifier rows and centered class means to align, which requires $W^\top\mathbf{1}_K\to0$. Different $s_t$ paths therefore support different class-mean alignment and feature-distribution geometry.}
+  \PaperKeyLine{Detector link}{Mahalanobis/kNN/GMM read $\mu_k,\Sigma_k,\|H\|$, and class separation; optimizer-induced geometry changes can therefore change their OOD scores.}
+  \PaperKeyLine{Boundary}{This mechanism supports optimizer-induced geometry shifts; OOD reliability is evaluated by the post-hoc diagnostics on the right.}
 }
 
 \begin{document}
@@ -351,44 +524,46 @@
 \PaperTwoColumns
 {%
   \PaperPlainAbstract{%
-    ID accuracy는 정답률을 요약하지만, confidence calibration과 distribution-shift robustness를 보장하지 않는다.
-    우리는 CIFAR-10 WRN-28-10을 SGD, Adam, AdamW와 LR–weight decay grid로 학습하고,
-    ID validation accuracy만으로 선택한 후보들의 calibration, post-hoc OOD detection, feature geometry를 진단한다.
-    Seed0 diagnostic draft는 비슷한 accuracy band 안에서도 raw feature OOD reliability가 갈라질 수 있으며,
-    L2-normalized controls가 그 차이를 feature norm/covariance-scale geometry와 연결해 볼 수 있음을 시사한다.
+    실제 배포환경에서 신뢰성은 단순한 정답률이 아니라 confidence가 실제 정답 가능성과 맞는지, 그리고 학습 분포 밖 입력을 안전하게 거절할 수 있는지까지 포함한다.
+    그러나 높은 ID test accuracy는 calibrated confidence나 OOD rejection을 보장하지 않는다.
+    본 포스터는 optimizer가 마지막 표현층의 class-conditional feature distribution을 어떻게 바꾸고, Mahalanobis/kNN/GMM 같은 feature-based detector가 그 분포를 읽으면서 OOD score ranking이 어떻게 달라질 수 있는지 진단한다.
+    결과적으로 validation-selected high-accuracy model이라도 optimizer/config 선택에 따라 calibration과 feature-based OOD reliability가 달라질 수 있으므로, 배포 전에는 accuracy와 함께 feature distribution-based diagnostics를 확인해야 한다.
   }
   \vspace{2mm}
 
   \PaperConceptSection{Introduction: Why Accuracy Is Not Reliability}{%
-    \PaperClaim{Accuracy summarizes correctness; reliability asks more.}
-    \PaperBullet{ID accuracy는 모델이 test distribution에서 정답을 얼마나 자주 맞히는지를 요약한다.}
-    \PaperBullet{실제 배포 reliability는 confidence가 믿을 만한지, distribution-shift input을 정상 입력처럼 받아들이지 않는지까지 함께 확인해야 한다.}
-    \PaperBullet{비슷한 ID accuracy라도 optimizer와 LR–weight decay 선택이 penultimate feature geometry를 다르게 만들면 post-hoc detector의 score landscape도 달라질 수 있다.}
-    \PaperBullet{따라서 optimizer를 단순한 training speed 선택이 아니라 calibration과 feature-based OOD reliability를 바꿀 수 있는 실험 요인으로 다룬다.}
-    \PaperQuestionFocus{비슷한 Accuracy라도 optimizer가 만든 feature geometry가 모델의 신뢰성에 어떤 영향을 미치는가?}
-  }
-  \vspace{8mm}
+    \PaperClaim{Accuracy is necessary, not reliability.}
 
-  \PaperConceptSection{Reliability Failure: Miscalibration and OOD Acceptance}{%
-    \PaperClaim{신뢰성 실패는 높은 confidence를 믿고 넘기거나 OOD 입력을 정상 입력처럼 넘기는 순간 downstream decision을 흔든다.}
-    \PaperBullet{Confidence는 보통 모델이 선택한 class의 softmax probability이고, actual accuracy는 비슷한 confidence bin 안에서 실제로 정답이었던 비율이다.}
-    \PaperBullet{Confidence와 actual accuracy가 크게 다르면 miscalibration이며, confidence-threshold 기반 승인/보류 결정이 불안정해진다.}
-    \PaperBullet{Post-hoc OOD detector는 score $s(x)$로 ID sample에는 높은 ID-like score를, OOD sample에는 낮은 score를 주어야 한다.}
-    \PaperBullet{OOD sample이 높은 ID-like score를 받으면, 지원하지 않는 입력도 정상 class prediction으로 downstream decision에 넘어갈 수 있다.}
+    \PaperBullet{ID accuracy는 test distribution에서 정답을 맞춘 비율을 요약한다. 따라서 좋은 모델의 필요조건이지만, 배포환경에서의 신뢰성을 단독으로 보장하지 않는다.}
+
+    \PaperBullet{첫 번째 실패는 miscalibration이다. 모델이 실제 정답 확률보다 더 높은 confidence를 내면, confidence-threshold 기반 승인/보류 결정이 불안정해진다.}
+
+    \PaperBullet{두 번째 실패는 OOD acceptance이다. 학습 분포 밖의 입력이 높은 ID-like score를 받으면, 지원하지 않는 입력도 정상 class prediction으로 downstream decision에 넘어갈 수 있다.}
+
+    \PaperClaim{따라서 신뢰가능한 모델은 높은 accuracy뿐 아니라 calibrated confidence와 OOD input을 구별하는 능력을 함께 가져야 한다.}
+
     \vspace{2.5mm}
     \includegraphics[width=0.97\linewidth]{../figures/final/fig1_reliability_failure_concept.png}\par
     \vspace{1.6mm}
     {\WantedCaptionFont\color{WantedMuted}\RaggedRight
-    \textbf{Figure 1.} Left: confidence no longer matches empirical accuracy, destabilizing threshold decisions. Right: an OOD input receives a high ID-like score and can be passed downstream as if it were ID.\par}
-    \PaperReliabilityMetrics
+    \textbf{Figure 1.} Accuracy만 높은 모델도 두 방식으로 실패할 수 있다.
+    Left: confidence가 empirical accuracy보다 높으면 overconfident decision이 발생한다.
+    Right: OOD input이 높은 ID-like score를 받으면 정상 입력처럼 downstream으로 전달될 수 있다.
+    Throughout the poster, higher OOD score means more ID-like.\par}
+
+    \PaperSubBlockTitle{Key Question}
+
+    \PaperClaim{최적화 방법이 마지막 표현층의 class-conditional distribution을 다르게 만든다면, validation-selected high-accuracy models의 calibration과 feature-based OOD detection은 어떻게 달라지는가?}
+
+    \PaperFailureLine{Calibration}{ECE는 confidence와 empirical accuracy 사이의 mismatch를 요약한다.}
+    \PaperFailureLine{OOD ranking}{AUROC는 ID sample이 OOD sample보다 더 높은 ID-like score를 받는지 평가한다.}
+    \PaperFailureLine{This work}{우리는 optimizer name 자체가 아니라, optimizer가 만든 feature distribution과 detector가 읽는 score geometry의 연결을 진단한다.}
   }
   \vspace{8mm}
 
   \PaperConceptSection{Optimizers: Update Rules Shift Feature Distributions}{%
     \PaperClaim{최적화 방법은 마지막 표현층의 class-conditional feature distribution을 바꿀 수 있다.}
     \OptimizerMechanismSketch
-    \PaperKeyLine{Implication}{Accuracy가 비슷해도 class mean separation, within-class dispersion, covariance scale/anisotropy, classifier-feature alignment가 달라질 수 있다.}
-    \PaperKeyLine{Boundary}{OOD reliability link is evaluated by our post-hoc diagnostics.}
   }
   \vfill
 
@@ -396,106 +571,104 @@
     \PaperClaim{Selection uses ID validation accuracy only.}
     \begin{minipage}[t]{0.49\linewidth}
       \PaperCompactKeyLine{ID / model}{CIFAR-10 / WRN-28-10}
-      \PaperCompactKeyLine{Factors}{SGD, Adam, AdamW $\times$ LR-WD grid}
-      \PaperCompactKeyLine{Selection}{ID validation accuracy only}
+      \PaperCompactKeyLine{Factors}{SGD, Adam, AdamW over LR-WD grid}
+      \PaperCompactKeyLine{Selection}{no OOD/geometry metric used}
     \end{minipage}%
     \hfill
     \begin{minipage}[t]{0.49\linewidth}
-      \PaperCompactKeyLine{Diagnostics}{ECE, OOD AUROC, feature distribution metrics}
+      \PaperCompactKeyLine{Post-hoc}{ECE, OOD AUROC, feature geometry metrics}
       \PaperCompactKeyLine{OOD}{CIFAR-100, TinyImageNet, SVHN, MNIST}
-      \PaperCompactKeyLine{Status}{Seed0 diagnostic draft}
+      \PaperCompactKeyLine{Reported}{seed 0/1/2 mean $\pm$ sample std}
     \end{minipage}
   }
 }
 {%
-  \PaperTinySection{Figure 2. Accuracy-Matched Reliability Split}{%
-    \includegraphics[width=0.94\linewidth]{../figures/source/fig1_seed0_reliability_scatter_draft.pdf}
+  \PaperTinySection{Figure 2. Accuracy-Matched Reliability Scatter}{%
+    \includegraphics[width=0.99\linewidth]{../figures/final/fig2_wrn350_accuracy_matched_reliability_scatter.pdf}
 
     \vspace{1mm}
-    {\WantedCaptionFont\color{WantedMuted}Seed0 diagnostic draft: ECE and raw Mahalanobis AUROC against ID validation accuracy. Calibration mismatch and raw feature OOD reliability can split within a similar ID accuracy band.}
+    {\WantedCaptionFont\color{WantedMuted}\RaggedRight
+    \textbf{Figure 2.} Points are validation-selected WRN-28-10/CIFAR-10 configs. x-axis is best ID validation accuracy; y-axes show ECE and raw Mahalanobis AUROC on CIFAR-100. Points and error bars are seed0/1/2 mean $\pm$ sample std.\par}
 
     \vspace{3mm}
-    \PaperResultNote{Read}{Similar ID validation accuracy does not imply similar reliability.}
-    \PaperResultNote{Evidence}{Seed0 candidates in a competitive accuracy band split in ECE and raw Mahalanobis AUROC.}
-    \PaperResultNote{Boundary}{Diagnostic draft; repeated-seed summaries will replace this view.}
+    \PaperRightBullet{Similar ID-validation accuracy does not imply identical reliability: ECE and raw feature-OOD AUROC separate by optimizer/config.}
+    \PaperRightBullet{SGD points sit at higher validation accuracy with lower ECE; AdamW has Adam-like accuracy but higher ECE and much larger fitted temperature.}
+    \PaperRightBullet{This is a post-hoc diagnostic under ID-validation selection; no OOD or geometry metric is used for selection.}
   }
-  \vfill
 
-  \PaperTinySection{Table 1. Dataset-Specific Raw Mahalanobis AUROC}{%
-    \PaperTightTable{%
-      \begin{tabularx}{\linewidth}{@{}l l Z Z Z Z@{}}
-        \toprule
-        Config & Optimizer & CIFAR-100 & TinyImageNet & SVHN & MNIST \\
-        \midrule
-        SGD-B & SGD & 0.861 & 0.857 & 0.973 & 0.946 \\
-        Adam-0 & Adam & 0.610 & 0.565 & 0.900 & 0.630 \\
-        Adam & Adam & 0.568 & 0.542 & 0.660 & 0.442 \\
-        AdamW-B & AdamW & 0.435 & 0.398 & 0.783 & 0.271 \\
-        \bottomrule
-      \end{tabularx}%
-    }{Dataset-specific raw Mahalanobis AUROC for four confirmed seed0 representative rows. Higher is better. Current table is a seed0 diagnostic draft and will be replaced by repeated-seed summaries.}
+  \PaperTinySection{Figure 3. Raw vs L2 Feature OOD AUROC on Near-OOD}{%
+    \includegraphics[width=0.99\linewidth]{../figures/final/fig3_wrn350_3optimizer_near_ood_raw_l2.pdf}
+
+    \vspace{1mm}
+    {\WantedCaptionFont\color{WantedMuted}\RaggedRight
+    \textbf{Figure 3.} One ID-validation representative is shown per optimizer. Bars are AUROC mean $\pm$ sample std over seeds 0/1/2. CIFAR-100 and TinyImageNet are shown separately; higher is better. L2 normalization is a detector-side diagnostic control.\par}
 
     \vspace{3mm}
-    \PaperResultNote{Read}{Raw Mahalanobis AUROC differs by OOD dataset and config.}
-    \PaperResultNote{Evidence}{Confirmed seed0 representative rows show large dataset-specific drops for Adam/AdamW rows relative to SGD-B.}
-    \PaperResultNote{Boundary}{Four directly confirmed representative rows only; no seed-averaged optimizer ranking claim.}
+    \PaperRightBullet{Raw feature detectors are strongest for the SGD representative and drop for Adam/AdamW, especially under raw Mahalanobis.}
+    \PaperRightBullet{L2-normalized controls recover much of the near-OOD ranking for AdamW, indicating a norm/covariance-scale component.}
+    \PaperRightBullet{L2 is a diagnostic control, not a final detector solution or full Mahalanobis++ reproduction.}
   }
-  \vfill
+  \vspace{1mm}
 
-  \PaperTinySection{Table 2. Geometry Summary}{%
+  \PaperTinySection{Table 1. Classwise Covariance Regularization in DDU-Style GMM}{%
     \PaperMicroTable{%
-      \begin{tabularx}{\linewidth}{@{}l l Z Z Z Z Z Y@{}}
+      \begin{tabularx}{\linewidth}{@{}l Z Z Z@{}}
         \toprule
-        Config & Opt & Val/Test & ECE & Raw Maha & NC1 & InterDist & Geom. diag. \\
+        Optimizer &
+        \begin{tabular}[c]{@{}c@{}}gmm\_ddu\_diag\\AUROC\end{tabular} &
+        \begin{tabular}[c]{@{}c@{}}gmm\_ddu\_shrinkage\\AUROC\end{tabular} &
+        $\Delta$ \\
         \midrule
-        SGD-A & SGD & 95.86/95.85 & 2.98 & 0.919 & 0.049 & 16.80 & compact \\
-        SGD-B & SGD & 96.12/95.46 & 3.31 & 0.909 & 0.068 & 14.33 & compact \\
-        Adam & Adam & 94.94/94.47 & 3.90 & 0.553 & 0.187 & 13.42 & spread $\uparrow$ \\
-        AdamW-B & AdamW & 95.28/94.68 & 4.51 & 0.472 & 0.271 & 5.37 & separation $\downarrow$ \\
-        AdamW-A & AdamW & 95.02/94.37 & 4.79 & 0.531 & 0.275 & 5.53 & separation $\downarrow$ \\
+        SGD & 0.9085 $\pm$ 0.0010 & 0.9103 $\pm$ 0.0010 & +0.0018 \\
+        Adam & 0.8678 $\pm$ 0.0027 & 0.8108 $\pm$ 0.0087 & -0.0570 \\
+        AdamW & 0.7900 $\pm$ 0.0059 & 0.8112 $\pm$ 0.0051 & +0.0212 \\
         \bottomrule
       \end{tabularx}%
-    }{Geometry diagnostics for selected accuracy-matched configs. Lower NC1 and larger InterDist generally indicate more compact and separated class geometry. Additional norm/covariance diagnostics are included when confirmed.}
+    }{\textbf{Table 1. Classwise covariance regularization in DDU-style GMM (CIFAR-100 AUROC).}
+    Representative validation-selected models are shown for SGD, Adam, and AdamW.
+    Replacing classwise diagonal covariance with classwise shrinkage covariance slightly improves SGD and clearly improves AdamW, but does not uniformly help every optimizer.
+    Results are seed0/1/2 mean $\pm$ sample std.
+    This is a DDU-style GMM feature-density diagnostic, not a full DDU reproduction.}
 
     \vspace{3mm}
-    \PaperResultNote{Read}{Reliability split is accompanied by different penultimate geometry.}
-    \PaperResultNote{Evidence}{Higher NC1 indicates larger within-class spread relative to separation; smaller InterDist indicates weaker class-mean separation.}
-    \PaperResultNote{Implication}{Distance/covariance-based detectors can see a different score landscape even when ID accuracy is similar.}
+    \PaperRightBullet{AdamW shows partial recovery under shrinkage covariance, suggesting that covariance estimation is one part of the detector split.}
+    \PaperRightBullet{The effect is not uniform: SGD changes little, while Adam decreases, so shrinkage should be interpreted as a covariance-control diagnostic rather than a universal fix.}
   }
-  \vfill
 
-  \PaperTinySection{Figure 3. Raw-to-L2 Recovery Suggests Norm/Scale Sensitivity}{%
-    \includegraphics[width=0.94\linewidth]{../figures/source/fig2_seed0_raw_to_l2_recovery_draft.pdf}
-
-    \vspace{1mm}
-    {\WantedCaptionFont\color{WantedMuted}Raw-to-L2 recovery suggests norm/covariance-scale sensitivity. L2-normalized controls reduce feature-scale effects while preserving angular information.}
+  \PaperTinySection{Table 2. Feature Distribution Geometry}{%
+    \PaperMicroTable{%
+      \input{../tables/tex/wrn350_3seed_geometry_summary.tex}%
+    }{ID-train penultimate feature diagnostics, seeds 0/1/2. Lower NC1 and larger InterDist indicate more compact and separated class-conditional geometry. Effective rank is a covariance-spectrum diagnostic, not a causal explanation by itself.}
 
     \vspace{3mm}
-    \PaperResultNote{Read}{Raw-to-L2 recovery suggests norm/scale sensitivity.}
-    \PaperResultNote{Evidence}{L2-normalized controls reduce feature-scale effects while preserving angular information.}
-    \PaperResultNote{Boundary}{Diagnostic control only; not a claim that L2 normalization is the final detector solution.}
+    \PaperRightBullet{The OOD detector split is accompanied by visible geometry shifts in class compactness, separation, norm scale, and covariance spectrum.}
+    \PaperRightBullet{AdamW rows have much smaller class-mean separation and lower feature norms than SGD; Adam has larger NC1 than SGD and much lower effective rank.}
+    \PaperRightBullet{Distance-, neighbor-, and covariance-based scores can change because the feature distribution they read has changed.}
   }
-  \vfill
 
-  \PaperPlainResultSection{Mechanism Diagnostic and Poster Conclusion}{%
-    \PaperClaim{Detector reliability depends on the geometry it sees, not the optimizer name directly.}
-    \PaperResultNote{Mechanism}{Raw Mahalanobis uses class means and covariance-based distance; raw kNN uses neighborhood distance.}
-    \PaperResultNote{Sensitivity}{Both can change with feature norms, class separation, covariance anisotropy, and effective rank.}
-    \PaperResultNote{Conclusion}{Accuracy is necessary but not sufficient. ID-validation-matched models can show different calibration, raw feature OOD reliability, and feature geometry profiles.}
-    \PaperResultNote{Boundary}{Seed0 diagnostic evidence; not a causal proof or seed-averaged conclusion.}
-  }
-  \vfill
+  \PaperTinySection{Conclusion and Future Work}{%
+    {\centering
+    {\PaperHeaderMetaFace\fontsize{20.5pt}{27pt}\selectfont\bfseries\color{WantedInk}
+    Accuracy-matched models are not reliability-matched: feature geometry determines post-hoc detector behavior.\par}
+    }
+    \vspace{3mm}
 
-  \PaperPlainResultSection{Future Work}{%
-    \PaperBullet{Adam-AdamW interpolation: coupled/decoupled weight decay 비율을 연속적으로 조정한다.}
-    \PaperBullet{Dataset / architecture expansion: CIFAR-10 WRN-28-10 밖에서도 패턴을 확인한다.}
-    \PaperBullet{Other training methods: SAM, Mixup 등이 feature norm/covariance scale과 detector reliability를 바꾸는지 확장한다.}
+    {\fontsize{15.6pt}{20.5pt}\selectfont\color{WantedText}\RaggedRight
+    Across validation-selected WRN-28-10/CIFAR-10 configurations, similar ID validation accuracy does not imply similar calibration or feature-based OOD reliability.
+    The observed split is accompanied by changes in penultimate class-conditional geometry, including compactness, class separation, feature-norm scale, and covariance structure.
+    Detector-side controls such as L2 normalization and shrinkage covariance explain part of the gap, but their effects are not uniform; therefore, they should be treated as diagnostics rather than universal fixes.
+    These results support a practical conclusion: deployment-oriented model selection should jointly inspect accuracy, calibration, OOD ranking, and feature-distribution geometry.\par}
+
+    \vspace{2.5mm}
+    \PaperRightBullet{\textbf{Broader architectures and datasets.} Extend the study beyond WRN-28-10/CIFAR-10 to more diverse architectures and training datasets.}
+    \PaperRightBullet{\textbf{Other training interventions.} Test whether other optimization methods, such as SAM, and augmentation strategies, such as mixup, preserve or distort detector-relevant feature geometry.}
+    \PaperRightBullet{\textbf{Mechanistic analysis.} Clarify how representation-layer distribution changes propagate to the output layer and affect generalization and ECE.}
   }
 }
 
 \WantedFooter
-  {Seed0 diagnostic draft. Main claims avoid seed-averaged consistency language until selected seed0/1/2 aggregation is imported.}
-  {Poster source: poster/poster.tex}
+  {WRN-28-10/CIFAR-10 selected configs, seeds 0/1/2. OOD and geometry metrics are post-hoc diagnostics; higher OOD score means more ID-like.}
+  {Source: poster/poster.tex; DDU-style GMM feature density is diagnostic, not a full DDU reproduction.}
 
 \end{WantedPoster}
 \end{document}

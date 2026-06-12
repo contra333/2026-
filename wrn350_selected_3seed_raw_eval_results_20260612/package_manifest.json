@@ -1,0 +1,225 @@
+{
+  "package_name": "wrn350_selected_3seed_raw_eval_results_20260612",
+  "created_at_kst": "2026-06-12T21:02:59+09:00",
+  "description": "Raw evaluation metrics and run metadata for WRN-28-10 selected 5 configs across seeds 0, 1, and 2 for the Korean Statistical Society poster.",
+  "experiment": {
+    "model": "WideResNet-28-10 dropout 0.3",
+    "id_dataset": "CIFAR-10",
+    "epochs": 350,
+    "checkpoint_for_seed1_seed2": "epoch_0350",
+    "seed0_note": "sgd_lr1e-1_wd5e-4_anchor uses final; other selected seed0 configs use epoch_0350, matching the original seed0 bundle convention.",
+    "ood_datasets": [
+      "cifar100",
+      "tiny_imagenet",
+      "svhn",
+      "mnist"
+    ],
+    "logit_detectors": [
+      "msp",
+      "maxlogit",
+      "energy_id_score",
+      "neg_entropy"
+    ],
+    "feature_detectors": [
+      "mahalanobis",
+      "mahalanobis_l2",
+      "knn",
+      "knn_l2",
+      "gmm_ddu_tied",
+      "gmm_ddu_diag",
+      "gmm_ddu_shrinkage"
+    ],
+    "main_geometry_split": "id_train"
+  },
+  "source_files": {
+    "seed0_zip": "/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip",
+    "seed1_seed2_manifest": "/home/ghjin/2027ICLR/2027ICLR/results/manifests/wrn350_selected_seed1_seed2_20260611_1142.json"
+  },
+  "runs": [
+    {
+      "config_label": "sgd_lr1e-1_wd5e-4_anchor",
+      "seed": 0,
+      "optimizer": "SGD",
+      "lr": 0.1,
+      "weight_decay": 0.0005,
+      "checkpoint_tag": "final",
+      "package_path": "runs/sgd_lr1e-1_wd5e-4_anchor/seed0",
+      "source": "/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/sgd_lr1e-1_wd5e-4_anchor",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/transfer_sgd_seed0_final/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0"
+    },
+    {
+      "config_label": "sgd_lr1e-1_wd5e-4_anchor",
+      "seed": 1,
+      "optimizer": "SGD",
+      "lr": 0.1,
+      "weight_decay": 0.0005,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/sgd_lr1e-1_wd5e-4_anchor/seed1",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd5e-4_anchor_seed1_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd5e-4_anchor_seed1_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd5e-4_anchor_seed1_selected_poster/eval/epoch_0350",
+      "tag": "sgd_lr1e-1_wd5e-4_anchor_seed1"
+    },
+    {
+      "config_label": "sgd_lr1e-1_wd5e-4_anchor",
+      "seed": 2,
+      "optimizer": "SGD",
+      "lr": 0.1,
+      "weight_decay": 0.0005,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/sgd_lr1e-1_wd5e-4_anchor/seed2",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd5e-4_anchor_seed2_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd5e-4_anchor_seed2_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd5e-4_anchor_seed2_selected_poster/eval/epoch_0350",
+      "tag": "sgd_lr1e-1_wd5e-4_anchor_seed2"
+    },
+    {
+      "config_label": "sgd_lr1e-1_wd2e-4",
+      "seed": 0,
+      "optimizer": "SGD",
+      "lr": 0.1,
+      "weight_decay": 0.0002,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/sgd_lr1e-1_wd2e-4/seed0",
+      "source": "/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/sgd_lr1e-1_wd2e-4",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260529_1152_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_idtune_seed0"
+    },
+    {
+      "config_label": "sgd_lr1e-1_wd2e-4",
+      "seed": 1,
+      "optimizer": "SGD",
+      "lr": 0.1,
+      "weight_decay": 0.0002,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/sgd_lr1e-1_wd2e-4/seed1",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed1_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed1_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed1_selected_poster/eval/epoch_0350",
+      "tag": "sgd_lr1e-1_wd2e-4_seed1"
+    },
+    {
+      "config_label": "sgd_lr1e-1_wd2e-4",
+      "seed": 2,
+      "optimizer": "SGD",
+      "lr": 0.1,
+      "weight_decay": 0.0002,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/sgd_lr1e-1_wd2e-4/seed2",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed2_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed2_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed2_selected_poster/eval/epoch_0350",
+      "tag": "sgd_lr1e-1_wd2e-4_seed2"
+    },
+    {
+      "config_label": "adam_lr1e-3_wd1e-4",
+      "seed": 0,
+      "optimizer": "Adam",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adam_lr1e-3_wd1e-4/seed0",
+      "source": "/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/adam_lr1e-3_wd1e-4",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260529_1152_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_idtune_seed0"
+    },
+    {
+      "config_label": "adam_lr1e-3_wd1e-4",
+      "seed": 1,
+      "optimizer": "Adam",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adam_lr1e-3_wd1e-4/seed1",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_seed1_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_seed1_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_seed1_selected_poster/eval/epoch_0350",
+      "tag": "adam_lr1e-3_wd1e-4_seed1"
+    },
+    {
+      "config_label": "adam_lr1e-3_wd1e-4",
+      "seed": 2,
+      "optimizer": "Adam",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adam_lr1e-3_wd1e-4/seed2",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_seed2_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_seed2_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_seed2_selected_poster/eval/epoch_0350",
+      "tag": "adam_lr1e-3_wd1e-4_seed2"
+    },
+    {
+      "config_label": "adamw_lr5e-3_wd1e-4",
+      "seed": 0,
+      "optimizer": "AdamW",
+      "lr": 0.005,
+      "weight_decay": 0.0001,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adamw_lr5e-3_wd1e-4/seed0",
+      "source": "/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/adamw_lr5e-3_wd1e-4",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260529_1152_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_idtune_seed0"
+    },
+    {
+      "config_label": "adamw_lr5e-3_wd1e-4",
+      "seed": 1,
+      "optimizer": "AdamW",
+      "lr": 0.005,
+      "weight_decay": 0.0001,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adamw_lr5e-3_wd1e-4/seed1",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_seed1_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_seed1_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_seed1_selected_poster/eval/epoch_0350",
+      "tag": "adamw_lr5e-3_wd1e-4_seed1"
+    },
+    {
+      "config_label": "adamw_lr5e-3_wd1e-4",
+      "seed": 2,
+      "optimizer": "AdamW",
+      "lr": 0.005,
+      "weight_decay": 0.0001,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adamw_lr5e-3_wd1e-4/seed2",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_seed2_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_seed2_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_seed2_selected_poster/eval/epoch_0350",
+      "tag": "adamw_lr5e-3_wd1e-4_seed2"
+    },
+    {
+      "config_label": "adamw_lr5e-3_wd5e-4_anchor",
+      "seed": 0,
+      "optimizer": "AdamW",
+      "lr": 0.005,
+      "weight_decay": 0.0005,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adamw_lr5e-3_wd5e-4_anchor/seed0",
+      "source": "/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/adamw_lr5e-3_wd5e-4_anchor",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0"
+    },
+    {
+      "config_label": "adamw_lr5e-3_wd5e-4_anchor",
+      "seed": 1,
+      "optimizer": "AdamW",
+      "lr": 0.005,
+      "weight_decay": 0.0005,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adamw_lr5e-3_wd5e-4_anchor/seed1",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed1_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed1_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed1_selected_poster/eval/epoch_0350",
+      "tag": "adamw_lr5e-3_wd5e-4_anchor_seed1"
+    },
+    {
+      "config_label": "adamw_lr5e-3_wd5e-4_anchor",
+      "seed": 2,
+      "optimizer": "AdamW",
+      "lr": 0.005,
+      "weight_decay": 0.0005,
+      "checkpoint_tag": "epoch_0350",
+      "package_path": "runs/adamw_lr5e-3_wd5e-4_anchor/seed2",
+      "source": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed2_selected_poster",
+      "source_run_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed2_selected_poster",
+      "source_eval_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed2_selected_poster/eval/epoch_0350",
+      "tag": "adamw_lr5e-3_wd5e-4_anchor_seed2"
+    }
+  ]
+}

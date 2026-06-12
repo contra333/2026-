@@ -1,0 +1,43 @@
+{
+  "dataset": "cifar10",
+  "id_dataset": "cifar10",
+  "num_classes": 10,
+  "num_total_train": 50000,
+  "num_train": 45000,
+  "num_val": 5000,
+  "ood_datasets": [
+    "cifar100",
+    "mnist",
+    "svhn",
+    "tiny_imagenet"
+  ],
+  "split_seed": 1,
+  "split_type": "stratified",
+  "train_class_counts": {
+    "0": 4500,
+    "1": 4500,
+    "2": 4500,
+    "3": 4500,
+    "4": 4500,
+    "5": 4500,
+    "6": 4500,
+    "7": 4500,
+    "8": 4500,
+    "9": 4500
+  },
+  "train_indices_hash": "8e53361f8c049072d195c7b81769b6fb7091b03c1ca4346df68fb54fc5a5fe5d",
+  "val_class_counts": {
+    "0": 500,
+    "1": 500,
+    "2": 500,
+    "3": 500,
+    "4": 500,
+    "5": 500,
+    "6": 500,
+    "7": 500,
+    "8": 500,
+    "9": 500
+  },
+  "val_fraction": 0.1,
+  "val_indices_hash": "518437b7cc99de859541ef193b4fa356e252112e2340ceff617c1cc9796aadb4"
+}

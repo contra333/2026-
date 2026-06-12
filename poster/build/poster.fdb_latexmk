@@ -1,0 +1,24 @@
+# Fdb version 4
+["xdvipdfmx"] 1781284878.32139 "build/poster.xdv" "build/poster.pdf" "build/poster" 1781284883.58907 0
+  "build/poster.xdv" 1781284878.06982 155768 6c1ab48428cc3f658583319305e981ea "xelatex"
+  (generated)
+  "build/poster.pdf"
+  (rewritten before read)
+["xelatex"] 1781284871.51783 "poster.tex" "build/poster.xdv" "poster" 1781284883.58868 0
+  "../figures/final/fig1_reliability_failure_concept.png" 1781231114.99337 1290043 4b03560187ccfe14c3b13d71a7f023cc ""
+  "../figures/final/fig2_wrn350_accuracy_matched_reliability_scatter.pdf" 1781279363.60444 17487 b5c2f39f147a037ddb0dda3047b0c08a ""
+  "../figures/final/fig3_wrn350_3optimizer_near_ood_raw_l2.pdf" 1781279363.63351 14658 ecaa295d53388288393b6b093850f39b ""
+  "../figures/통계학회 로고.png" 1781231114.99337 21594 82c07bd6a154de224b83ddc960d1b4de ""
+  "../figures/한양대학교 로고.png" 1781231114.99337 89402 a98ae0daa699f64569eb1516b8897772 ""
+  "../tables/tex/wrn350_3seed_geometry_summary.tex" 1781284826.26093 641 0f0b71e8aad3db8e2f01b3ce430bf3a1 ""
+  "build/poster.aux" 1781284878.04899 159 f0c4911d822dc0f5d3eb4bec5a528b66 "xelatex"
+  "build/poster.out" 1781284875.86941 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
+  "fonts/pretendard/static/Pretendard-Regular.otf" 1781231114.96514 1574352 84c0ea9d65324c758c8bd9686207afea ""
+  "poster.tex" 1781284204.57235 28761 bfe328db276456cd6f0429886126db98 ""
+  "poster_style.tex" 1781284204.78047 19307 a6de433cd24469c537ed53ee18929e2f ""
+  (generated)
+  "build/poster.aux"
+  "build/poster.log"
+  "build/poster.out"
+  "build/poster.xdv"
+  (rewritten before read)

@@ -1,0 +1,93 @@
+{
+  "id_test": {
+    "feature_dim": 640,
+    "feature_norm_mean": 6.434492425049251,
+    "feature_norm_quantiles": {
+      "max": 13.66910019288926,
+      "median": 6.231924240928427,
+      "min": 1.8401099303855624,
+      "q25": 5.328202671403982,
+      "q75": 7.373488506609535
+    },
+    "feature_norm_std": 1.5203517010128131,
+    "num_samples": 10000
+  },
+  "id_train": {
+    "feature_dim": 640,
+    "feature_norm_mean": 6.582168575526435,
+    "feature_norm_quantiles": {
+      "max": 14.393560615610127,
+      "median": 6.397861247966711,
+      "min": 2.441013281938016,
+      "q25": 5.57475161838981,
+      "q75": 7.415845598145387
+    },
+    "feature_norm_std": 1.4041666352941173,
+    "num_samples": 45000
+  },
+  "id_val": {
+    "feature_dim": 640,
+    "feature_norm_mean": 6.405210296198781,
+    "feature_norm_quantiles": {
+      "max": 14.144236333635348,
+      "median": 6.223173089877976,
+      "min": 2.4772830367047094,
+      "q25": 5.313201695564846,
+      "q75": 7.32255800845406
+    },
+    "feature_norm_std": 1.51279101905856,
+    "num_samples": 5000
+  },
+  "ood_test_cifar100": {
+    "feature_dim": 640,
+    "feature_norm_mean": 4.7575089802712185,
+    "feature_norm_quantiles": {
+      "max": 10.64245049393282,
+      "median": 4.673210991047546,
+      "min": 1.4751889030790755,
+      "q25": 4.1617832675439415,
+      "q75": 5.249415317867394
+    },
+    "feature_norm_std": 0.9157479495507602,
+    "num_samples": 10000
+  },
+  "ood_test_mnist": {
+    "feature_dim": 640,
+    "feature_norm_mean": 2.811399912997637,
+    "feature_norm_quantiles": {
+      "max": 5.730608923657941,
+      "median": 2.786865685518407,
+      "min": 0.6567320801456474,
+      "q25": 2.4101386094528925,
+      "q75": 3.1818932233333332
+    },
+    "feature_norm_std": 0.6157831495809505,
+    "num_samples": 10000
+  },
+  "ood_test_svhn": {
+    "feature_dim": 640,
+    "feature_norm_mean": 5.238822259718251,
+    "feature_norm_quantiles": {
+      "max": 11.207431697805006,
+      "median": 5.092939919968014,
+      "min": 1.6512416408700663,
+      "q25": 4.383650477955644,
+      "q75": 5.958266880808601
+    },
+    "feature_norm_std": 1.1743939380463129,
+    "num_samples": 26032
+  },
+  "ood_test_tiny_imagenet": {
+    "feature_dim": 640,
+    "feature_norm_mean": 4.608354060163646,
+    "feature_norm_quantiles": {
+      "max": 11.486275294758077,
+      "median": 4.5022841429317415,
+      "min": 1.1285137770467266,
+      "q25": 3.9859401612874534,
+      "q75": 5.115131045611255
+    },
+    "feature_norm_std": 0.95913134429174,
+    "num_samples": 10000
+  }
+}

@@ -1,0 +1,6 @@
+label,opt,config,lr,wd,id_test_acc,nll,ece,t_ece,temp,n_seeds
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,95.83 $\pm$ 0.16,0.205 $\pm$ 0.011,2.95 $\pm$ 0.11,0.85 $\pm$ 0.18,1.88 $\pm$ 0.06,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,95.58 $\pm$ 0.14,0.233 $\pm$ 0.003,3.21 $\pm$ 0.14,0.87 $\pm$ 0.11,2.09 $\pm$ 0.06,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,94.49 $\pm$ 0.10,0.285 $\pm$ 0.011,3.92 $\pm$ 0.06,0.66 $\pm$ 0.09,2.48 $\pm$ 0.05,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,94.47 $\pm$ 0.24,0.527 $\pm$ 0.005,4.65 $\pm$ 0.20,0.62 $\pm$ 0.15,5.02 $\pm$ 0.11,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,94.36 $\pm$ 0.02,0.526 $\pm$ 0.016,4.76 $\pm$ 0.05,0.60 $\pm$ 0.07,5.11 $\pm$ 0.11,3

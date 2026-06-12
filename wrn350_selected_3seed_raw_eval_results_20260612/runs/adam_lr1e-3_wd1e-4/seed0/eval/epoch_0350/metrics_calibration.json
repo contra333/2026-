@@ -1,0 +1,8 @@
+{
+  "id_test": {
+    "ece_15bin": 0.03903824414667681,
+    "temperature": 2.4954878461947194,
+    "temperature_fitting_split": "id_val",
+    "temperature_scaled_ece_15bin": 0.005988522342188052
+  }
+}

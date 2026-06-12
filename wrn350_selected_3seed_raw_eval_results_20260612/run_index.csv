@@ -1,0 +1,16 @@
+config_label,seed,optimizer,lr,weight_decay,checkpoint_tag,package_path,source
+sgd_lr1e-1_wd5e-4_anchor,0,SGD,0.1,0.0005,final,runs/sgd_lr1e-1_wd5e-4_anchor/seed0,/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/sgd_lr1e-1_wd5e-4_anchor
+sgd_lr1e-1_wd5e-4_anchor,1,SGD,0.1,0.0005,epoch_0350,runs/sgd_lr1e-1_wd5e-4_anchor/seed1,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd5e-4_anchor_seed1_selected_poster
+sgd_lr1e-1_wd5e-4_anchor,2,SGD,0.1,0.0005,epoch_0350,runs/sgd_lr1e-1_wd5e-4_anchor/seed2,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd5e-4_anchor_seed2_selected_poster
+sgd_lr1e-1_wd2e-4,0,SGD,0.1,0.0002,epoch_0350,runs/sgd_lr1e-1_wd2e-4/seed0,/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/sgd_lr1e-1_wd2e-4
+sgd_lr1e-1_wd2e-4,1,SGD,0.1,0.0002,epoch_0350,runs/sgd_lr1e-1_wd2e-4/seed1,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed1_selected_poster
+sgd_lr1e-1_wd2e-4,2,SGD,0.1,0.0002,epoch_0350,runs/sgd_lr1e-1_wd2e-4/seed2,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed2_selected_poster
+adam_lr1e-3_wd1e-4,0,Adam,0.001,0.0001,epoch_0350,runs/adam_lr1e-3_wd1e-4/seed0,/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/adam_lr1e-3_wd1e-4
+adam_lr1e-3_wd1e-4,1,Adam,0.001,0.0001,epoch_0350,runs/adam_lr1e-3_wd1e-4/seed1,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_seed1_selected_poster
+adam_lr1e-3_wd1e-4,2,Adam,0.001,0.0001,epoch_0350,runs/adam_lr1e-3_wd1e-4/seed2,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adam_lr1e-3_wd1e-4_seed2_selected_poster
+adamw_lr5e-3_wd1e-4,0,AdamW,0.005,0.0001,epoch_0350,runs/adamw_lr5e-3_wd1e-4/seed0,/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/adamw_lr5e-3_wd1e-4
+adamw_lr5e-3_wd1e-4,1,AdamW,0.005,0.0001,epoch_0350,runs/adamw_lr5e-3_wd1e-4/seed1,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_seed1_selected_poster
+adamw_lr5e-3_wd1e-4,2,AdamW,0.005,0.0001,epoch_0350,runs/adamw_lr5e-3_wd1e-4/seed2,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd1e-4_seed2_selected_poster
+adamw_lr5e-3_wd5e-4_anchor,0,AdamW,0.005,0.0005,epoch_0350,runs/adamw_lr5e-3_wd5e-4_anchor/seed0,/home/ghjin/2027ICLR/2027ICLR/results/WRN_seed0_350eps_girdsearch_0531.zip:WRN_seed0_350eps_girdsearch_0531/runs/adamw_lr5e-3_wd5e-4_anchor
+adamw_lr5e-3_wd5e-4_anchor,1,AdamW,0.005,0.0005,epoch_0350,runs/adamw_lr5e-3_wd5e-4_anchor/seed1,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed1_selected_poster
+adamw_lr5e-3_wd5e-4_anchor,2,AdamW,0.005,0.0005,epoch_0350,runs/adamw_lr5e-3_wd5e-4_anchor/seed2,/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed2_selected_poster

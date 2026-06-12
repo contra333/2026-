@@ -1,0 +1,152 @@
+{
+  "aggregate_metrics": {
+    "aupr_in_tie_handling": "stable_descending_score_order",
+    "auroc_tie_handling": "rank_average",
+    "fpr95_threshold_rule": "ID-score 5th percentile quantile; accept score >= threshold"
+  },
+  "cache": {
+    "checkpoint": "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_epoch_0350.pt",
+    "checkpoint_epoch": 350,
+    "checkpoint_tag": "epoch_0350",
+    "metadata_present": true,
+    "path": "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/cache/epoch_0350"
+  },
+  "energy_id_score": {
+    "fitting_split": "none",
+    "native_sign_note": "project stores T*logsumexp(z/T), not negative energy",
+    "score_direction": "higher_is_id_like",
+    "temperature": 1.0
+  },
+  "global_ood_convention": {
+    "higher_score": "more_id_like",
+    "id_label": 1,
+    "ood_label": 0
+  },
+  "gmm_ddu_diag": {
+    "class_prior": "equal",
+    "covariance": "classwise_diagonal",
+    "covariance_convention": "classwise diagonal variance divided by n_c",
+    "fitting_split": "id_train",
+    "note": "DDU-style GMM diagnostic on standard SN-off feature space, not faithful DDU reproduction",
+    "score": "logsumexp_class_log_density_with_equal_class_prior",
+    "score_direction": "higher_is_id_like",
+    "variance_floor": 1e-05
+  },
+  "gmm_ddu_shrinkage": {
+    "alpha": 0.0,
+    "alpha_grid": [
+      0.0,
+      0.01,
+      0.05,
+      0.1,
+      0.2,
+      0.5
+    ],
+    "alpha_selection": "id_val_class_conditional_likelihood",
+    "class_prior": "equal",
+    "covariance": "classwise_shrinkage",
+    "covariance_convention": "classwise covariance divided by n_c-1 before shrinkage",
+    "fitting_split": "id_train",
+    "jitter": 1e-05,
+    "note": "DDU-style shrinkage GMM / covariance-estimation control, not faithful DDU reproduction",
+    "score": "logsumexp_class_log_density_with_equal_class_prior",
+    "score_direction": "higher_is_id_like",
+    "selection_split": "id_val",
+    "shrinkage_target": "T_c = trace(Sigma_c) / d * I"
+  },
+  "gmm_ddu_tied": {
+    "class_prior": "equal",
+    "covariance": "tied",
+    "covariance_convention": "pooled within-class scatter divided by N-K",
+    "fitting_split": "id_train",
+    "jitter": 1e-05,
+    "note": "DDU-style GMM diagnostic on standard SN-off feature space, not faithful DDU reproduction",
+    "score": "logsumexp_class_log_density_with_equal_class_prior",
+    "score_direction": "higher_is_id_like"
+  },
+  "knn": {
+    "fitting_split": "id_train",
+    "k": 50,
+    "score": "negative_kth_nearest_neighbor_distance",
+    "score_direction": "higher_is_id_like",
+    "self_neighbor_rule": "exclude self-neighbor only when scoring id_train itself"
+  },
+  "knn_l2": {
+    "fitting_split": "id_train",
+    "k": 50,
+    "normalization": "l2_feature_before_fit_and_score",
+    "score": "negative_kth_nearest_neighbor_distance",
+    "score_direction": "higher_is_id_like",
+    "self_neighbor_rule": "exclude self-neighbor only when scoring id_train itself"
+  },
+  "mahalanobis": {
+    "covariance": "tied",
+    "covariance_convention": "pooled within-class scatter divided by N-K",
+    "fitting_split": "id_train",
+    "jitter": 1e-05,
+    "score_direction": "higher_is_id_like"
+  },
+  "mahalanobis_l2": {
+    "covariance_convention": "pooled within-class scatter divided by N-K after L2 normalization",
+    "fitting_split": "id_train",
+    "jitter": 1e-05,
+    "normalization": "l2_feature_before_fit_and_score",
+    "note": "Mahalanobis++-motivated control, not full Mahalanobis++ reproduction",
+    "score_direction": "higher_is_id_like"
+  },
+  "maxlogit": {
+    "fitting_split": "none",
+    "score_direction": "higher_is_id_like"
+  },
+  "metric_contract_version": "2026-05-19",
+  "msp": {
+    "fitting_split": "none",
+    "score_direction": "higher_is_id_like"
+  },
+  "nc_prototype_cosine": {
+    "fitting_split": "id_train",
+    "score": "max_cosine_between_l2_feature_and_l2_class_mean",
+    "score_direction": "higher_is_id_like"
+  },
+  "ncc_accuracy": {
+    "fitting_split": "id_train",
+    "note": "label accuracy of nearest-class-center classifier, not NC4 agreement",
+    "reporting_split": "id_test",
+    "score_direction": "higher_is_better"
+  },
+  "ncc_distance": {
+    "fitting_split": "id_train",
+    "score": "negative_min_euclidean_distance_to_id_train_class_mean",
+    "score_direction": "higher_is_id_like"
+  },
+  "neg_entropy": {
+    "fitting_split": "none",
+    "native_sign_note": "raw entropy is OOD-like; project stores negative entropy",
+    "score_direction": "higher_is_id_like"
+  },
+  "output": {
+    "path": "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/eval/epoch_0350"
+  },
+  "temperature_scaled_ece_15bin": {
+    "fitting_split": "id_val",
+    "temperature": 5.205303301501776
+  },
+  "vim_id_score": {
+    "alpha": 34.683250427246094,
+    "alpha_fit_split": "id_train",
+    "alpha_rule": "mean_id_train_maxlogit_div_mean_id_train_residual_norm",
+    "centering": "id_train_feature_mean",
+    "diagnostic_only": true,
+    "fitting_split": "id_train",
+    "native_direction": "higher_is_ood_like",
+    "principal_dim": 128,
+    "principal_dim_effective": 128,
+    "project_transform": "1 - p_virtual_ood",
+    "score_direction": "higher_is_id_like"
+  },
+  "vim_native_ood_score": {
+    "aggregate_metric_input": false,
+    "note": "native diagnostic recorded in params only; project aggregate uses vim_id_score",
+    "score_direction": "higher_is_ood_like"
+  }
+}

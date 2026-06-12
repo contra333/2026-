@@ -12,6 +12,8 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.venv/
+.matplotlib-cache/
 
 # Raw experiment artifacts should stay outside this poster workspace/repo.
 *.pt

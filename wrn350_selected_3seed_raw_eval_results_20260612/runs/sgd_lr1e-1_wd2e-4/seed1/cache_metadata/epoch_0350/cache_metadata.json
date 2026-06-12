@@ -1,0 +1,88 @@
+{
+  "cache_dir": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed1_selected_poster/cache/epoch_0350",
+  "cache_files": [
+    "classifier.pt",
+    "id_test.pt",
+    "id_train.pt",
+    "id_val.pt",
+    "ood_test_cifar100.pt",
+    "ood_test_mnist.pt",
+    "ood_test_svhn.pt",
+    "ood_test_tiny_imagenet.pt"
+  ],
+  "cache_tag": "epoch_0350",
+  "checkpoint": "/home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_sgd_lr1e-1_wd2e-4_seed1_selected_poster/checkpoints/checkpoint_epoch_0350.pt",
+  "checkpoint_epoch": 350,
+  "checkpoint_tag": "epoch_0350",
+  "classifier": {
+    "classifier_attr": "fc",
+    "orientation": "rows_are_classes"
+  },
+  "dataset": "cifar10",
+  "feature_layer": "pre_classifier_flattened_pool_output",
+  "id_dataset": "cifar10",
+  "model": "standard_wrn_28_10_dropout03",
+  "normalization": {
+    "mean": [
+      0.4914,
+      0.4822,
+      0.4465
+    ],
+    "name": "cifar10",
+    "ood_uses_id_normalization": true,
+    "std": [
+      0.2023,
+      0.1994,
+      0.201
+    ]
+  },
+  "ood_datasets": [
+    "cifar100",
+    "mnist",
+    "svhn",
+    "tiny_imagenet"
+  ],
+  "split_metadata": {
+    "dataset": "cifar10",
+    "id_dataset": "cifar10",
+    "num_classes": 10,
+    "num_total_train": 50000,
+    "num_train": 45000,
+    "num_val": 5000,
+    "ood_datasets": [
+      "cifar100",
+      "mnist",
+      "svhn",
+      "tiny_imagenet"
+    ],
+    "split_seed": 1,
+    "split_type": "stratified",
+    "train_class_counts": {
+      "0": 4500,
+      "1": 4500,
+      "2": 4500,
+      "3": 4500,
+      "4": 4500,
+      "5": 4500,
+      "6": 4500,
+      "7": 4500,
+      "8": 4500,
+      "9": 4500
+    },
+    "train_indices_hash": "8e53361f8c049072d195c7b81769b6fb7091b03c1ca4346df68fb54fc5a5fe5d",
+    "val_class_counts": {
+      "0": 500,
+      "1": 500,
+      "2": 500,
+      "3": 500,
+      "4": 500,
+      "5": 500,
+      "6": 500,
+      "7": 500,
+      "8": 500,
+      "9": 500
+    },
+    "val_fraction": 0.1,
+    "val_indices_hash": "518437b7cc99de859541ef193b4fa356e252112e2340ceff617c1cc9796aadb4"
+  }
+}

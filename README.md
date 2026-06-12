@@ -1,42 +1,69 @@
 # 2026 Korean Statistics Conference Poster
 
-This workspace is the production area for an A0 portrait statistics conference poster and related presentation artifacts.
+This workspace produces the Korean statistics conference A0 portrait poster and
+small related artifacts. Experiment code and raw training outputs remain outside
+this workspace.
 
-Experiment code is external:
+Experiment code source of truth:
 
 ```text
 /mnt/c/Users/User/Desktop/2027ICLR/code
 ```
 
-This workspace stores research context, small processed result copies, manifests, figures, tables, design harness assets, and TeX/PDF deliverables.
+## Active Files
 
-## Map
+- `poster/poster.tex`: current poster source.
+- `poster/poster_style.tex`: active TeX style/macros for the poster.
+- `poster/build/poster.pdf`: current compiled PDF.
+- `docs/research/current_poster_context.md`: single current logic/context file.
+- `docs/research/wrn350_selected_3seed_metrics_notion_20260612.md`: numeric metric summary.
+- `data/manifests/wrn350_selected_3seed_poster_assets_20260612.md`: provenance for imported results and poster assets.
 
-- `AI_CONTEXT.md`: short hot cache for new Codex sessions.
-- `AGENTS.md`: operating rules for AI agents.
-- `PRODUCT.md`: poster product and design intent.
-- `docs/research/`: experiment plan, evidence boundary, aggregation guide, and storyline.
-- `docs/design/`: design-system notes and handoff guidance.
-- `references/`: heavy PPTX and Figma reference files.
-- `design_harness/`: reusable design tokens, prompts, and templates.
-- `data/`: small processed result copies and import manifests.
-- `analysis/`: aggregation and plotting scripts plus intermediate outputs.
-- `tables/`: poster table source CSVs and TeX fragments.
+## Workspace Map
+
+- `analysis/`: scripts and tests for aggregation and poster asset generation.
+- `data/`: small processed result copies and provenance manifests.
+- `docs/research/`: current poster context and metric summaries.
 - `figures/`: source and final poster figures.
-- `poster/`: TeX poster source, assets, references, and build outputs.
-- `archive/`: preserved superseded drafts.
+- `poster/`: TeX poster source, style, fonts, references, and build outputs.
+- `references/`: heavy PPTX/Figma reference files kept for historical lookup.
+- `tables/`: poster table CSVs and TeX fragments.
+- `archive/`: historical drafts, plans, and retired design-harness files; do not read by default.
 
-## Current Poster Target
+## Current Poster
 
-- Format: one A0 portrait page, `841mm x 1189mm`.
-- Locked title: `Optimizer-Induced Feature Geometry Shapes Post-Hoc OOD Detection Reliability`.
-- Header: no subtitle; `GunHak Jin ∙ HyeYoung Jung` plus `Department of Mathematical Data Science, Hanyang University`; Hanyang University and Korean Statistical Society logos at the upper right.
-- Key question: `비슷한 Accuracy라도 optimizer가 만든 feature geometry가 모델의 신뢰성에 어떤 영향을 미치는가?`
-- Main story: test accuracy alone is not enough; optimizer-induced feature geometry can change calibration and post-hoc OOD detection reliability.
-- Current figure structure: Figure 1 is the Reliability Failure concept diagram, Figure 2 is the accuracy-matched reliability split, and Figure 3 is the raw-to-L2 recovery figure.
-- Primary evidence plan: WRN-28-10/CIFAR-10 selected 5 configs, seed0/1/2 aggregation.
-- Final deliverable target: `poster/poster.tex` compiled to PDF, preferably with XeLaTeX, Korean TeX support, Pretendard for Hangul, and Cambria Math for formulas.
+See `docs/research/current_poster_context.md` for the live narrative, evidence
+boundary, and figure/table order. Avoid duplicating that context here.
 
 ## Result Import Rule
 
-Only import small processed CSV/JSON files plus provenance manifests. Keep checkpoints, feature caches, server logs, raw result directories, and large arrays outside this poster workspace.
+Only import small processed CSV/JSON files plus provenance manifests. Keep
+checkpoints, feature caches, server logs, raw result directories, and large
+arrays outside this poster workspace.
+
+## Build
+
+Preferred final build:
+
+```bash
+cd poster
+latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=build poster.tex
+```
+
+In the current WSL setup, `latexmk` may need to call Windows MiKTeX's
+`xelatex.exe` explicitly:
+
+```bash
+cd poster
+PATH="/mnt/c/Users/jin/AppData/Local/Programs/MiKTeX/miktex/bin/x64:$PATH" \
+  latexmk -g -xelatex -e '$xelatex = q/xelatex.exe %O %S/;' \
+  -interaction=nonstopmode -halt-on-error -outdir=build poster.tex
+```
+
+If `latexmk` is unavailable but a native XeLaTeX engine exists, use XeLaTeX
+directly:
+
+```bash
+cd poster
+xelatex -interaction=nonstopmode -halt-on-error -output-directory=build poster.tex
+```

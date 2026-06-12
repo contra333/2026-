@@ -1,0 +1,41 @@
+label,opt,config,lr,wd,dataset,dataset_label,detector,detector_label,mean,std,n_seeds
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,cifar100,CIFAR-100,mahalanobis,Raw Maha,0.8700202916666667,0.0028622676168439344,3
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,cifar100,CIFAR-100,mahalanobis_l2,Maha-L2,0.89052144,0.0010738867157549735,3
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,cifar100,CIFAR-100,knn,Raw kNN,0.9060826516666666,0.0009588936093010137,3
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,cifar100,CIFAR-100,knn_l2,kNN-L2,0.9072576766666667,0.001042984231787966,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,cifar100,CIFAR-100,mahalanobis,Raw Maha,0.86179744,0.00266130705204703,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,cifar100,CIFAR-100,mahalanobis_l2,Maha-L2,0.8750185283333334,0.0007451897239014961,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,cifar100,CIFAR-100,knn,Raw kNN,0.9040201900000001,0.001026422520066703,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,cifar100,CIFAR-100,knn_l2,kNN-L2,0.9049705616666667,0.00041011328698092094,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,cifar100,CIFAR-100,mahalanobis,Raw Maha,0.577861,0.008678290491238706,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,cifar100,CIFAR-100,mahalanobis_l2,Maha-L2,0.7229652683333333,0.0057404750265251225,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,cifar100,CIFAR-100,knn,Raw kNN,0.8542276966666668,0.0018538468414646396,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,cifar100,CIFAR-100,knn_l2,kNN-L2,0.8810001,0.003995798565609237,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,cifar100,CIFAR-100,mahalanobis,Raw Maha,0.44017537,0.014442568055805545,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,cifar100,CIFAR-100,mahalanobis_l2,Maha-L2,0.8518284466666666,0.0020680466055575802,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,cifar100,CIFAR-100,knn,Raw kNN,0.5874658066666667,0.026762382062218527,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,cifar100,CIFAR-100,knn_l2,kNN-L2,0.8906159050000001,0.0033457504928976626,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,cifar100,CIFAR-100,mahalanobis,Raw Maha,0.43879219333333336,0.01498452610656268,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,cifar100,CIFAR-100,mahalanobis_l2,Maha-L2,0.8535330666666666,0.0060629046477788376,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,cifar100,CIFAR-100,knn,Raw kNN,0.6052827883333333,0.020311629555960276,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,cifar100,CIFAR-100,knn_l2,kNN-L2,0.8907231133333333,0.0048329842406642,3
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,tiny_imagenet,TinyImageNet,mahalanobis,Raw Maha,0.8630591416666666,0.0016226897299879818,3
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,tiny_imagenet,TinyImageNet,mahalanobis_l2,Maha-L2,0.8818025833333333,0.0004773579421235043,3
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,tiny_imagenet,TinyImageNet,knn,Raw kNN,0.8997458116666666,0.0013253882516109747,3
+SGD-5e-4,SGD,sgd_lr1e-1_wd5e-4_anchor,0.1,5e-4,tiny_imagenet,TinyImageNet,knn_l2,kNN-L2,0.8997304600000001,0.0009970077196667323,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,tiny_imagenet,TinyImageNet,mahalanobis,Raw Maha,0.8590020483333333,0.0035988741053499225,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,tiny_imagenet,TinyImageNet,mahalanobis_l2,Maha-L2,0.8649307883333334,0.0015189828139278744,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,tiny_imagenet,TinyImageNet,knn,Raw kNN,0.9019576283333333,0.001762391314608727,3
+SGD-2e-4,SGD,sgd_lr1e-1_wd2e-4,0.1,2e-4,tiny_imagenet,TinyImageNet,knn_l2,kNN-L2,0.8987686516666668,0.0008412917172766635,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,tiny_imagenet,TinyImageNet,mahalanobis,Raw Maha,0.5572220250000001,0.014311284397440576,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,tiny_imagenet,TinyImageNet,mahalanobis_l2,Maha-L2,0.7328616433333334,0.004363831811849391,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,tiny_imagenet,TinyImageNet,knn,Raw kNN,0.8441073583333333,0.005533798270540193,3
+Adam,Adam,adam_lr1e-3_wd1e-4,1e-3,1e-4,tiny_imagenet,TinyImageNet,knn_l2,kNN-L2,0.8810633966666667,0.005252384896883373,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,tiny_imagenet,TinyImageNet,mahalanobis,Raw Maha,0.39087921000000003,0.01851242645390387,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,tiny_imagenet,TinyImageNet,mahalanobis_l2,Maha-L2,0.8610222533333333,0.0029087936830468697,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,tiny_imagenet,TinyImageNet,knn,Raw kNN,0.5485948383333333,0.04473290011212281,3
+AdamW-1e-4,AdamW,adamw_lr5e-3_wd1e-4,5e-3,1e-4,tiny_imagenet,TinyImageNet,knn_l2,kNN-L2,0.8898650533333333,0.003006215703988713,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,tiny_imagenet,TinyImageNet,mahalanobis,Raw Maha,0.3978914783333334,0.0035370093171432616,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,tiny_imagenet,TinyImageNet,mahalanobis_l2,Maha-L2,0.856268955,0.0052395980791302066,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,tiny_imagenet,TinyImageNet,knn,Raw kNN,0.575179745,0.02147343834628199,3
+AdamW-5e-4,AdamW,adamw_lr5e-3_wd5e-4_anchor,5e-3,5e-4,tiny_imagenet,TinyImageNet,knn_l2,kNN-L2,0.8862383500000001,0.0031077770297915103,3

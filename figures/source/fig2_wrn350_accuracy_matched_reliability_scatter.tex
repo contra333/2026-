@@ -1,0 +1,131 @@
+\documentclass[tikz,border=3mm]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\definecolor{GridColor}{HTML}{D9E2EF}
+\definecolor{SgdColor}{HTML}{2F5597}
+\definecolor{AdamColor}{HTML}{70AD47}
+\definecolor{AdamwColor}{HTML}{C00000}
+\begin{document}
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=2 by 1,horizontal sep=1.35cm},
+  width=8.2cm,
+  height=7.15cm,
+  xmin=94.65,
+  xmax=96.85,
+  xlabel={Best ID validation accuracy (\%)},
+  xtick={95.0,95.5,96.0,96.5},
+  tick label style={font=\scriptsize},
+  label style={font=\small},
+  title style={font=\bfseries\small},
+  grid=major,
+  grid style={draw=GridColor,line width=0.25pt},
+  legend style={at={(1.02,1.24)},anchor=south,legend columns=3,draw=none,font=\scriptsize},
+  error bars/error bar style={line width=0.32pt},
+  error bars/error mark options={rotate=90,mark size=1.25pt,line width=0.32pt},
+  clip=false
+]
+\nextgroupplot[
+  title={Calibration},
+  ylabel={ECE (\%)},
+  ymin=2.6,
+  ymax=5.1,
+  ytick={3.0,3.5,4.0,4.5,5.0}
+]
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=SgdColor,
+  fill=SgdColor,
+  mark=*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(96.31,2.95) +- (0.39,0.11)};
+\addlegendentry{SGD-5e-4}
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=SgdColor,
+  fill=white,
+  mark=triangle*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(96.27,3.21) +- (0.15,0.14)};
+\addlegendentry{SGD-2e-4}
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=AdamColor,
+  fill=AdamColor,
+  mark=square*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(95.21,3.92) +- (0.32,0.06)};
+\addlegendentry{Adam}
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=AdamwColor,
+  fill=AdamwColor,
+  mark=diamond*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(95.23,4.65) +- (0.09,0.20)};
+\addlegendentry{AdamW-1e-4}
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=AdamwColor,
+  fill=white,
+  mark=pentagon*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(95.06,4.76) +- (0.22,0.05)};
+\addlegendentry{AdamW-5e-4}
+
+\nextgroupplot[
+  title={Raw feature OOD},
+  ylabel={Raw Mahalanobis AUROC on CIFAR-100},
+  ymin=0.38,
+  ymax=0.91,
+  ytick={0.4,0.5,0.6,0.7,0.8,0.9}
+]
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=SgdColor,
+  fill=SgdColor,
+  mark=*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(96.31,0.8700) +- (0.39,0.0029)};
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=SgdColor,
+  fill=white,
+  mark=triangle*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(96.27,0.8618) +- (0.15,0.0027)};
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=AdamColor,
+  fill=AdamColor,
+  mark=square*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(95.21,0.5779) +- (0.32,0.0087)};
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=AdamwColor,
+  fill=AdamwColor,
+  mark=diamond*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(95.23,0.4402) +- (0.09,0.0144)};
+\addplot+[
+  only marks,
+  mark size=2.9pt,
+  color=AdamwColor,
+  fill=white,
+  mark=pentagon*,
+  error bars/.cd,x dir=both,x explicit,y dir=both,y explicit
+] coordinates {(95.06,0.4388) +- (0.22,0.0150)};
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

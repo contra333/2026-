@@ -1,0 +1,29 @@
+{
+  "best_val_epoch": 192,
+  "best_val_metric": "accuracy",
+  "best_val_mode": "max",
+  "best_val_value": 0.9502000002861023,
+  "checkpoint": "checkpoints/checkpoint_final.pt",
+  "checkpoint_dir": "checkpoints",
+  "checkpoint_files": [
+    "checkpoints/checkpoint_best_val.pt",
+    "checkpoints/checkpoint_epoch_0050.pt",
+    "checkpoints/checkpoint_epoch_0100.pt",
+    "checkpoints/checkpoint_epoch_0150.pt",
+    "checkpoints/checkpoint_epoch_0200.pt",
+    "checkpoints/checkpoint_epoch_0250.pt",
+    "checkpoints/checkpoint_epoch_0300.pt",
+    "checkpoints/checkpoint_epoch_0350.pt",
+    "checkpoints/checkpoint_final.pt"
+  ],
+  "device": "cuda",
+  "epochs": 350,
+  "final_val_metrics": {
+    "accuracy": 0.9462000000953674,
+    "nll": 0.5324143940925599,
+    "num_samples": 5000
+  },
+  "save_best_val": true,
+  "save_every_epochs": 50,
+  "seed": 0
+}

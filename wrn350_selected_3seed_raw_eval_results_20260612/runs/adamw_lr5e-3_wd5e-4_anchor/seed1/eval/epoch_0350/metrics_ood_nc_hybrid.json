@@ -1,0 +1,77 @@
+{
+  "implemented_detectors": [
+    "ncc_accuracy",
+    "ncc_distance",
+    "nc_prototype_cosine",
+    "vim_id_score"
+  ],
+  "nc_prototype_cosine": {
+    "cifar100": {
+      "aupr_in": 0.8876171744558257,
+      "auroc": 0.882821275,
+      "fpr95": 0.5546
+    },
+    "mnist": {
+      "aupr_in": 0.9978637888322539,
+      "auroc": 0.99761836,
+      "fpr95": 0.0076
+    },
+    "svhn": {
+      "aupr_in": 0.9503479960808721,
+      "auroc": 0.9714123348186847,
+      "fpr95": 0.182659803318992
+    },
+    "tiny_imagenet": {
+      "aupr_in": 0.8749570312003976,
+      "auroc": 0.876334805,
+      "fpr95": 0.5485
+    }
+  },
+  "ncc_accuracy": {
+    "id_test": 0.9348999857902527
+  },
+  "ncc_distance": {
+    "cifar100": {
+      "aupr_in": 0.7663555268456604,
+      "auroc": 0.73332048,
+      "fpr95": 0.9461
+    },
+    "mnist": {
+      "aupr_in": 0.9556689573656094,
+      "auroc": 0.927936425,
+      "fpr95": 0.7435
+    },
+    "svhn": {
+      "aupr_in": 0.8318153537810365,
+      "auroc": 0.8690641998309773,
+      "fpr95": 0.8728488014751076
+    },
+    "tiny_imagenet": {
+      "aupr_in": 0.758614987120214,
+      "auroc": 0.73435899,
+      "fpr95": 0.9515
+    }
+  },
+  "vim_id_score": {
+    "cifar100": {
+      "aupr_in": 0.9263353704233726,
+      "auroc": 0.88665672,
+      "fpr95": 1.0
+    },
+    "mnist": {
+      "aupr_in": 0.9658176445727965,
+      "auroc": 0.91389907,
+      "fpr95": 1.0
+    },
+    "svhn": {
+      "aupr_in": 0.9795002576159617,
+      "auroc": 0.9331532287185003,
+      "fpr95": 1.0
+    },
+    "tiny_imagenet": {
+      "aupr_in": 0.9133028400936779,
+      "auroc": 0.878537685,
+      "fpr95": 1.0
+    }
+  }
+}

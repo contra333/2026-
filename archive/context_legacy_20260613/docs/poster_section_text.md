@@ -28,17 +28,17 @@
 
 ### 1.2 Evidence Constraints
 
-현재 포스터의 수치는 seed0 diagnostic draft이다. 따라서 본문은 반드시 다음
-경계를 유지한다.
+현재 포스터의 수치는 selected 5 configs의 seed0/1/2 mean +/- sample std이다.
+따라서 본문은 반드시 다음 경계를 유지한다.
 
-- `seed0`, `diagnostic`, `draft`, `preliminary`, `suggests`,
-  `is consistent with`, `may contribute to`를 사용한다.
-- `proves`, `demonstrates`, `consistently`, `always`, `causes`처럼
-  seed 반복 전에는 강한 표현을 쓰지 않는다.
+- `post-hoc diagnostic evidence`, `is associated with`, `can differ`,
+  `is consistent with`처럼 bounded claim을 사용한다.
+- `proves`, `always`, `causes`처럼 causal proof 또는 보편 명제로 읽히는
+  강한 표현은 쓰지 않는다.
 - OOD와 geometry metric은 hyperparameter selection에 쓰지 않았고,
   post-hoc diagnostics로만 쓴다.
-- 최종 3-seed 결과가 들어오면 selected 5 configs의 `mean +/- std`로
-  table과 figure를 교체한다.
+- OOD dataset 간 평균은 포스터 본문 figure에 만들지 않고, CIFAR-100과
+  TinyImageNet을 별도 패널로 보여준다.
 - `DDU`는 원 논문 전체 recipe 재현이 아니라 `DDU-style GMM feature density`로
   표기한다.
 
@@ -122,22 +122,24 @@ Department of Mathematical Data Science, Hanyang University
 ### Poster Text
 
 ```text
-ID accuracy는 정답률을 요약하지만, confidence calibration과 distribution-shift
-robustness를 보장하지 않는다. 우리는 CIFAR-10 WRN-28-10을 SGD, Adam, AdamW와
-LR–weight decay grid로 학습하고, ID validation accuracy만으로 선택한 후보들의
-calibration, post-hoc OOD detection, feature geometry를 진단한다. Seed0 diagnostic
-draft는 비슷한 accuracy band 안에서도 raw feature OOD reliability가 갈라질 수
-있으며, L2-normalized controls가 그 차이를 feature norm/covariance-scale geometry와
-연결해 볼 수 있음을 시사한다.
+실제 배포환경에서 신뢰성은 단순한 정답률이 아니라 confidence가 실제 정답 가능성과
+맞는지, 그리고 학습 분포 밖 입력을 안전하게 거절할 수 있는지까지 포함한다.
+그러나 높은 ID test accuracy는 calibrated confidence나 OOD rejection을 보장하지
+않는다. 본 포스터는 optimizer가 마지막 표현층의 class-conditional feature
+distribution을 어떻게 바꾸고, Mahalanobis/kNN/GMM 같은 feature-based detector가
+그 분포를 읽으면서 OOD score ranking이 어떻게 달라질 수 있는지 진단한다.
+결과적으로 validation-selected high-accuracy model이라도 optimizer/config 선택에
+따라 calibration과 feature-based OOD reliability가 달라질 수 있으므로, 배포 전에는
+accuracy와 함께 feature distribution-based diagnostics를 확인해야 한다.
 ```
 
 ### Ultra-Short Version
 
 ```text
 높은 ID accuracy는 calibration이나 post-hoc OOD reliability를 보장하지 않는다.
-CIFAR-10 WRN-28-10 seed0 diagnostic evidence에서 accuracy band 안에서도 raw
-feature OOD AUROC가 크게 갈라지고, L2 control recovery는 feature norm/covariance-scale
-geometry 해석과 일관된다.
+CIFAR-10 WRN-28-10 selected 5 configs의 seed0/1/2 evidence에서 validation-selected
+high-accuracy models can differ in ECE and feature-based near-OOD AUROC, and
+L2 control recovery links the split to feature norm/covariance-scale geometry.
 ```
 
 ## 3.2 Introduction: Why Accuracy Is Not Reliability
@@ -220,9 +222,10 @@ OOD sample에는 낮은 score를 주어야 한다. OOD sample이 ID처럼 높은
 ### Figure 1 Caption
 
 ```text
-Figure 1. Left: confidence no longer matches empirical accuracy, destabilizing
-threshold decisions. Right: an OOD input receives a high ID-like score and can
-be passed downstream as if it were ID.
+\textbf{Figure 1.} Accuracy만 높은 모델도 두 방식으로 실패할 수 있다.
+Left: confidence가 empirical accuracy보다 높으면 overconfident decision이 발생한다.
+Right: OOD input이 높은 ID-like score를 받으면 정상 입력처럼 downstream으로 전달될 수 있다.
+Throughout the poster, higher OOD score means more ID-like.
 ```
 
 ### Formula
@@ -271,81 +274,86 @@ covariance scale/anisotropy, between-class separation으로 연결한다.
 ### Poster Text
 
 ```text
-마지막 표현을 `H=h_theta(X)`로 두면, 각 class는 표현층에서 하나의 조건부분포
-`H | Y=k`를 만든다. 이 분포는 class mean `mu_k`, covariance `Sigma_k`,
-within-class dispersion, between-class separation으로 요약할 수 있다. Mahalanobis,
-kNN, DDU-style GMM 같은 post-hoc feature detector는 바로 이 분포의 위치와
-공분산 구조를 본다.
+마지막 표현층의 geometry를 class-conditional feature distribution으로 요약한다.
+Let X be an input, Y in {1,...,K} its ID class label, and H=h_theta(X) in R^p the
+penultimate feature. For class k, H | Y=k is summarized by its center, spread,
+anisotropy, and norm scale.
 
-Optimizer가 이 분포를 바꿀 수 있는 이유는 마지막 classifier `W`와 feature `H`가
-cross-entropy 학습 중 함께 움직이기 때문이다. 마지막 logit layer를
-`z = W h_theta(x)`로 쓰고, classifier row-sum statistic을
-`a_t = K^{-1} ||W_t^T 1_K||_2^2`로 둔다. Cross-entropy에서는 마지막층 gradient의
-row-sum이 0이다: `(nabla_W L_CE)^T 1_K = 0`. 따라서 이 statistic의 변화는 loss
-gradient 자체보다 weight decay가 update 안에서 어떻게 작용하는지에 크게 좌우된다.
+Mahalanobis, kNN, DDU-style GMM 같은 post-hoc feature detector는 이 분포를 서로
+다른 방식으로 읽는다. Mahalanobis high score는 h가 pooled covariance ellipsoid에서
+어떤 class mean에 가깝다는 뜻이고, kNN high score는 h가 ID feature bank 안에 가까운
+neighbor를 갖는다는 뜻이다. DDU-style GMM high score는 fitted class-conditional
+Gaussian mixture 아래에서 h의 likelihood가 높다는 뜻이다.
 
-SGD/L2에서는 `W_{t+1}=W_t-eta(nabla L + lambda W_t)`이고, row-sum을 취하면
-`s_{t+1}=(1-eta lambda)s_t`가 된다. 즉
-`a_{t+1} approx (1-eta lambda)^2 a_t`이므로 class 방향의 centering statistic이 0쪽으로
-수축한다. 반면 Adam/L2와 AdamW에서는 같은 `lambda W_t` 항이 adaptive scaling 안에
-들어가느냐, 밖에서 별도 shrinkage로만 작용하느냐가 다르다. 이 차이는 classifier-feature
-alignment와 함께 `H | Y=k`의 mean separation, covariance scale, anisotropy를 다르게
-만들 수 있다.
+Optimizer가 이 분포를 바꿀 수 있는 이유는 마지막 classifier W와 feature H가
+cross-entropy 학습 중 함께 움직이기 때문이다. 마지막 logit layer를 z=W h_theta(x)로
+쓰고, g_t=nabla_{W_t} L_CE, s_t=W_t^T 1_K, a_t=K^{-1}||s_t||_2^2로 둔다.
+Cross-entropy에서는 g_t^T 1_K=0이고, s_t는 classifier row-sum direction이다.
 
-따라서 optimizer/LR/WD는 비슷한 ID accuracy에 도달하더라도 마지막 표현층의
-class-conditional feature distribution을 다르게 만들 수 있다. 이 mechanism은
-optimizer-induced feature distribution shift를 설명하고, OOD reliability와의 연결은
-우리 post-hoc diagnostics로 평가한다.
+SGD/L2에서는 row-sum zero gradient 때문에 weight decay가 s_t를 주로 수축한다. Adam/L2는
+decay term이 adaptive direction 안에 들어가고, AdamW는 decoupled decay가 adaptive
+direction 밖에서 shrinkage로 작용한다. Adaptive scaling은 centered gradient를
+non-centered update로 바꿀 수 있으므로, coupled/decoupled weight decay는 classifier
+centering과 feature-distribution geometry에서 서로 다른 경로를 만들 수 있다.
+
+NC2/NC3 alignment는 classifier rows와 centered class means가 맞물려야 하며, 이를 위해
+W^T 1_K -> 0이 필요하다. 따라서 다른 s_t 경로는 class-mean alignment와 feature
+distribution geometry 차이로 이어질 수 있다. Mahalanobis/kNN/GMM은 mu_k, Sigma_k,
+||H||, class separation을 읽으므로, optimizer-induced geometry changes는 같은 detector
+formula에서도 OOD score ranking을 바꿀 수 있다.
 ```
 
 ### Formulas
 
 ```tex
-H=h_\theta(X),\qquad
-H\mid Y=k:\quad
-\mu_k=\mathbb{E}[H\mid Y=k],\quad
-\Sigma_k=\mathrm{Var}(H\mid Y=k)
+H\mid Y=k,\qquad
+\mu_k=\mathbb{E}[H\mid Y=k],\qquad
+\Sigma_k=\mathbb{E}\{(H-\mu_k)(H-\mu_k)^\top\mid Y=k\}
 ```
 
 ```tex
 z=W h_\theta(x),\qquad
+g_t=\nabla_{W_t}L_{\rm CE},\qquad
 s_t=W_t^\top \mathbf{1}_K,\qquad
 a_t=\frac{1}{K}\|s_t\|_2^2,\qquad
-(\nabla_W L_{\mathrm{CE}})^\top\mathbf{1}_K=0
+g_t^\top\mathbf{1}_K=0
 ```
 
 ```tex
 \text{SGD/L2:}\quad
-W_{t+1}=W_t-\eta(\nabla_W L+\lambda W_t)
-\Rightarrow
-s_{t+1}=(1-\eta\lambda)s_t
-\Rightarrow
-a_{t+1}\approx(1-\eta\lambda)^2a_t
+V_{t+1}=\beta V_t+g_t,\qquad
+W_{t+1}=(1-\eta\lambda)W_t-\eta V_{t+1},\qquad
+s_{t+1}\approx(1-\eta\lambda)s_t
 ```
 
 ```tex
-\text{Adam/L2:}\quad W_{t+1}=W_t-\eta D_t(\nabla_W L+\lambda W_t)
+\text{Adam/L2:}\quad
+g_t^{\rm L2}=g_t+\lambda W_t,\qquad
+W_{t+1}=W_t-\eta D_t g_t^{\rm L2}
 ```
 
 ```tex
-\text{AdamW:}\quad W_{t+1}=(1-\eta\lambda)W_t-\eta D_t\nabla_W L
+\text{AdamW:}\quad
+W_{t+1}=W_t-\eta D_tg_t-\eta\lambda W_t,\qquad
+(D_tg_t)^\top\mathbf{1}_K\not\equiv0
 ```
 
 ### Ultra-Short Version
 
 ```text
-마지막 표현층의 `H | Y=k` 분포는 class mean, within-class dispersion, covariance
-scale/anisotropy, between-class separation으로 요약된다. Cross-entropy 마지막층
-gradient의 row-sum은 0이므로, classifier centering statistic은 weight-decay coupling에
-크게 좌우된다. 이 차이가 classifier-feature alignment와 class-conditional feature
-distribution을 다르게 만들 수 있다.
+`H | Y=k`는 center, spread, anisotropy, norm scale로 요약된다. CE gradients are
+row-sum zero, so SGD/L2 mainly contracts classifier row-sum `s_t`; adaptive scaling
+and coupled/decoupled weight decay can follow different centering paths. Because
+Mahalanobis/kNN/GMM read `mu_k`, `Sigma_k`, `||H||`, and class separation, those
+geometry paths can change OOD score ranking.
 ```
 
 ### Diagram Requirement
 
 - 별도 Figure 번호를 붙이지 않고, Optimizer 섹션 내부에 작은 `Mechanism sketch`로 넣는다.
-- 도식은 `feature distribution view`를 상단에 두고, 이어서 `CE zero row-sum`과
-  `SGD/L2 contraction`, `Adam/L2 vs AdamW coupling split`을 보여준다.
+- 도식은 `feature distribution view`를 상단에 두고, 이어서 detector가 읽는
+  distribution quantities, `CE zero row-sum`, `SGD/L2`, `Adam/L2`, `AdamW`, 그리고
+  stepwise geometry chain을 보여준다.
 - 새 도식은 optimizer -> feature distribution shift mechanism만 설명한다. OOD detector
   성능 저하의 직접 증거처럼 보이지 않도록 caption 또는 boundary 문장을 함께 둔다.
 
@@ -389,227 +397,162 @@ ID-like하도록 맞춘다.
 | Selection | ID validation accuracy only |
 | OOD datasets | CIFAR-100, TinyImageNet, SVHN, MNIST |
 | Feature layer | penultimate feature |
-| Current status | seed0 diagnostic draft |
-| Final target | selected 5 configs, seed0/1/2 mean +/- std |
+| Current status | selected 5 configs, seed0/1/2 mean +/- sample std |
+| Main result assets | validation/calibration table, near-OOD raw-vs-L2 figure, geometry table |
 
 ### Ultra-Short Version
 
 ```text
 Hyperparameters are selected by ID validation accuracy only. OOD, calibration,
-and geometry metrics are post-hoc diagnostics. Current poster values are seed0
-diagnostic draft values.
+and geometry metrics are post-hoc diagnostics. Poster values are selected
+seed0/1/2 mean +/- sample std.
 ```
 
-## 3.6 Figure 2: Accuracy-Matched Reliability Split
+## 3.6 Table 1: Validation-Selected Models
 
 ### Role
 
-Figure 2를 오른쪽 열의 main result로 둔다. ID validation accuracy가 비슷한 후보들이
-reliability metric에서는 같은 순서로 정렬되지 않음을 보여준다.
+오른쪽 열의 첫 evidence panel이다. ID validation accuracy로 선택한 5개 config가
+높은 accuracy band에 있더라도 calibration diagnostic은 달라질 수 있음을 보여준다.
+
+### Required Columns
+
+```text
+Config, Optimizer, ID test acc, ID test NLL, ECE, Temperature-scaled ECE, Temperature
+```
 
 ### Caption Text
 
 ```text
-Seed0 diagnostic draft: ECE and raw Mahalanobis AUROC against ID validation
-accuracy. Calibration mismatch and raw feature OOD reliability can split within a
-similar ID accuracy band.
+Selected WRN-28-10/CIFAR-10 configs, seeds 0/1/2. Selection uses ID validation
+accuracy only; calibration metrics are post-hoc diagnostics.
 ```
 
 ### Interpretation Text
 
 ```text
-Figure 2는 ID validation accuracy가 비슷한 후보들이 reliability metric에서는 같은 순서로
-정렬되지 않음을 보여준다. 즉, ID accuracy는 필요한 selection criterion이지만
-calibration과 feature-based OOD reliability를 대체하지 못한다.
+Table 1은 high ID accuracy가 calibration identity를 보장하지 않음을 보여준다.
+SGD rows는 ID test accuracy가 더 높고 ECE가 낮으며, AdamW rows는 competitive
+accuracy band에 있지만 ECE와 temperature scaling 값이 더 크다.
 
-Seed0 diagnostic draft에서 Adam/AdamW 후보는 competitive ID accuracy band에 들어오지만,
-ECE와 raw Mahalanobis AUROC는 SGD 후보와 다른 profile을 보인다. 이는 accuracy-matched
-regime에서도 reliability axis가 분리될 수 있음을 시사한다.
-
-이 그림의 역할은 "accuracy가 완전히 무너진 모델"을 비교하는 것이 아니다. 비슷한 ID
-accuracy band 안에서도 calibration mismatch와 raw feature OOD reliability가 분리될 수
-있다는 점을 먼저 고정하는 것이다.
+이 표는 optimizer ranking을 단독으로 주장하기 위한 표가 아니다. Selection은 ID
+validation accuracy만 사용했고, ECE/NLL/temperature는 post-hoc diagnostic으로
+읽는다.
 ```
 
 ### Ultra-Short Version
 
 ```text
-ID validation accuracy가 비슷해도 ECE와 raw Mahalanobis AUROC는 같은 순서로 정렬되지
-않을 수 있다. Accuracy는 필요한 selection criterion이지만 reliability를 대체하지 못한다.
+Validation-selected high-accuracy models can differ in ECE and temperature
+scaling; accuracy alone does not determine calibration reliability.
 ```
 
-## 3.7 Table 1: Dataset-Specific Raw Mahalanobis AUROC
+## 3.7 Figure 2: Raw vs L2 Feature OOD AUROC on Near-OOD
 
 ### Role
 
-평균값 하나로 숨기지 않고, raw Mahalanobis AUROC가 OOD dataset별로 어떻게 달라지는지
-보여준다. 현재 source에서 직접 확인되는 representative rows가 4개뿐이라는 coverage note를
-반드시 보존한다.
+오른쪽 열의 main empirical figure이다. CIFAR-100과 TinyImageNet을 별도 패널로
+표시해 OOD dataset 간 평균을 만들지 않으면서 raw feature detector split과
+L2-normalized diagnostic recovery를 보여준다.
 
-### Required Columns
+### Required Figure Structure
 
 ```text
-Config, Optimizer, CIFAR-100, TinyImageNet, SVHN, MNIST
+Panels: CIFAR-100, TinyImageNet
+X-axis: SGD-5e-4, SGD-2e-4, Adam, AdamW-1e-4, AdamW-5e-4
+Series: raw Mahalanobis, Mahalanobis-L2, raw kNN, kNN-L2
+Y-axis: AUROC, higher is better
+Error bars: sample std over seeds 0/1/2
 ```
 
 ### Caption Text
 
 ```text
-Dataset-specific raw Mahalanobis AUROC for four confirmed seed0 representative
-rows. Higher is better. Current table is a seed0 diagnostic draft and will be
-replaced by repeated-seed summaries.
+CIFAR-100 and TinyImageNet are shown separately. Bars are AUROC mean +/- sample
+std over seeds 0/1/2. Higher is better; no average across OOD datasets is used.
 ```
 
 ### Interpretation Text
 
 ```text
-Table 1은 raw Mahalanobis AUROC가 OOD dataset별로 어떻게 달라지는지 보여준다. 낮은 raw
-Mahalanobis AUROC는 ID feature와 OOD feature를 score ranking으로 충분히 구분하지 못한다는
-뜻이다.
+Feature detectors split sharply on raw features, especially for AdamW rows.
+Raw Mahalanobis drops on CIFAR-100/TinyImageNet for Adam/AdamW, while
+detector-side L2 controls recover much of the ranking.
 
-Dataset-specific raw Mahalanobis AUROC는 optimizer/LR/WD config에 따라 크게 달라진다.
-예를 들어 seed0 draft에서 SGD 대표 row는 CIFAR-100/TinyImageNet/SVHN/MNIST 전반에서
-높은 raw Mahalanobis AUROC를 보이지만, Adam/AdamW 대표 row는 dataset별로 큰 drop을
-보인다. 이는 feature-based detector가 ID accuracy와 같은 순서로 정렬되지 않을 수 있음을
-보여주는 preliminary signal이다.
-
-현재 표는 source에서 직접 확인되는 4개 representative rows만 사용한다. 따라서 이 표는
-seed0 diagnostic evidence이며, 최종본에서는 selected configs의 repeated-seed mean +/- std로
-교체한다. 이 표만으로 optimizer별 일관성이나 seed-averaged superiority를 주장하지 않는다.
+This figure should not be read as "L2 normalization solves OOD detection."
+L2 normalization is a diagnostic control that reduces feature-scale effects while
+preserving angular information.
 ```
 
-## 3.8 Table 2: Geometry Summary
+## 3.8 Table 2: Feature Distribution Geometry
 
 ### Role
 
-Reliability split이 단순한 accuracy 차이만으로 설명되지 않음을 보이기 위한 geometry
-diagnostic이다. Table 2는 `raw Mahalanobis가 낮다`에서 끝나지 않고, 그 차이가
-penultimate feature geometry와 연결될 수 있다는 해석으로 넘어가는 다리 역할을 한다.
+Figure 2의 detector split이 단순한 detector artifact가 아니라 penultimate feature
+distribution의 차이와 함께 나타난다는 것을 보여주는 geometry evidence panel이다.
 
 ### Required Columns
 
 ```text
-Config, Optimizer, Val/Test Acc, ECE, Raw Maha, NC1, InterDist, Feature norm / covariance diagnostic
+Config, Optimizer, NC1, InterDist, feature norm mean, effective rank
 ```
 
 ### Metric Boundary
 
 - 포스터 표에는 geometry metric을 과하게 넣지 않는다.
-- 기본 축은 `NC1`, `InterDist`, `feature norm / covariance diagnostic`으로 제한한다.
-- `NC3`, `effective rank`, `condition number`는 값이 확실하고 공간이 허용될 때만
-  마지막 diagnostic column 또는 Q&A 보조 자료로 사용한다.
-- 수치가 확정되지 않은 norm/covariance metric은 포스터 제작 시 `TBD`로 남기지 않고,
-  확인된 값만 넣거나 qualitative diagnostic으로 축약한다.
+- 기본 축은 `NC1`, `InterDist`, `feature_norm_mean`, `effective_rank`로 제한한다.
+- `NC3`, `condition number`, full covariance spectrum은 Q&A 보조 자료로 남긴다.
+- 표 caption에서는 낮은 NC1과 큰 InterDist가 더 compact/separated geometry와
+  관련된다는 정도로만 설명한다.
 
 ### Caption Text
 
 ```text
-Geometry diagnostics for selected accuracy-matched configs. Lower NC1 and larger
-InterDist generally indicate more compact and separated class geometry. Additional
-norm/covariance diagnostics are included when confirmed.
+ID-train penultimate feature diagnostics, seeds 0/1/2. Lower NC1 and larger
+InterDist indicate more compact and separated class-conditional geometry.
 ```
 
 ### Interpretation Text
 
 ```text
-Table 2는 ID accuracy가 비슷하더라도 optimizer/LR/weight decay 조합이 만든 penultimate
-feature geometry가 다를 수 있음을 보여주는 diagnostic table이다.
+Table 2는 optimizer/LR/weight decay 조합이 만든 penultimate feature distribution이
+다를 수 있음을 보여준다. AdamW rows는 class-mean separation과 feature norm이 작고,
+Adam row는 SGD보다 NC1이 크면서 effective rank가 낮다.
 
-특히 NC1이 커지면 class 내부 feature spread가 class 간 separation에 비해 커졌다는 뜻으로
-해석할 수 있고, InterDist가 작아지면 class mean separation이 약해졌다는 뜻으로 해석할
-수 있다. 이런 geometry 변화는 Mahalanobis나 kNN처럼 feature distance와 covariance scale에
-의존하는 post-hoc detector의 score landscape를 바꿀 수 있다.
-
-이 표는 geometry 하나로 detector gap을 증명하기 위한 표가 아니다. Figure 2의 reliability
-split과 Figure 3의 raw-to-L2 recovery를 연결해, feature norm/covariance-scale geometry를
-함께 보고해야 한다는 diagnostic 근거를 제공한다.
+이 표는 geometry 하나로 detector gap을 증명하기 위한 표가 아니다. Figure 2의 raw-vs-L2
+split과 함께 읽어, feature-based detector가 읽는 class-conditional distribution이
+optimizer choice와 함께 달라질 수 있음을 보여주는 diagnostic evidence이다.
 ```
 
-## 3.9 Figure 3: Raw-to-L2 Recovery
-
-### Required Title
-
-```text
-Raw-to-L2 Recovery Suggests Norm/Scale Sensitivity
-```
-
-### Required X-Axis Short Labels
-
-```text
-SGD-A, SGD-B, Adam, AdamW-B, AdamW-A
-```
-
-### Role
-
-Table 2 다음에 배치한다. Table 2가 `geometry가 다르다`를 보여주고, Figure 3은
-feature scale effect를 줄이면 raw detector drop이 회복되는지를 보여준다.
-
-### Caption Text
-
-```text
-Raw-to-L2 recovery suggests norm/covariance-scale sensitivity. L2-normalized
-controls reduce feature-scale effects while preserving angular information.
-```
-
-### Interpretation Text
-
-```text
-Figure 3은 raw Mahalanobis와 raw kNN의 drop이 L2-normalized control에서 얼마나 회복되는지
-보여준다. L2 normalization은 feature norm scale을 줄이면서 angular information을 보존하는
-post-hoc control이다.
-
-Raw Mahalanobis와 raw kNN은 feature norm, distance, covariance scale에 직접 의존한다.
-따라서 Adam/AdamW representative에서 raw detector가 낮고 L2-normalized detector가 회복되는
-seed0 pattern은, raw feature OOD reliability gap이 optimizer-induced feature
-norm/covariance-scale geometry와 연결될 수 있다는 해석과 일관된다.
-
-이 결과는 "특정 optimizer가 무조건 나쁘다"가 아니라, "optimizer가 만든 geometry와
-detector가 의존하는 geometry가 맞지 않을 수 있다"는 메시지로 읽어야 한다. 또한
-L2 normalization이 최종 해법이라는 주장이 아니라, raw detector drop이 feature scale
-sensitivity와 연결될 수 있음을 보여주는 diagnostic control이다.
-```
-
-## 3.10 Mechanism Diagnostic and Poster Conclusion
+## 3.9 Takeaway and Limitations
 
 ### Role
 
 결과 해석을 단순한 `AdamW가 나쁘다`가 아니라, detector-side sensitivity와
-feature geometry의 상호작용으로 정리한다. 별도의 spanning takeaway 섹션 없이
-포스터의 결론도 이 섹션에서 마무리한다.
+feature distribution의 상호작용으로 정리한다.
 
 ### Poster Text
 
 ```text
-핵심 해석은 "optimizer가 accuracy를 낮췄다"가 아니다. Seed0 diagnostic draft는 비슷한
-ID accuracy band 안에서도 calibration과 raw feature OOD reliability가 분리될 수 있고,
-이 차이가 penultimate feature norm/covariance-scale geometry와 연결될 수 있음을 시사한다.
+Detector reliability depends on the feature distribution it sees, not the
+optimizer name directly. Accuracy is necessary but not sufficient:
+validation-selected high-accuracy models can differ in calibration and
+feature-based OOD behavior.
 
-Post-hoc feature detectors do not see the optimizer directly. They see the feature
-space produced by training. Raw Mahalanobis uses class means and covariance-based
-distance; raw kNN uses neighborhood distance. Both scores can change when feature
-norms, class separation, covariance anisotropy, or effective rank change.
-
-Raw Mahalanobis와 raw kNN은 feature norm, distance, covariance scale에 민감하다. 따라서
-post-hoc feature detector를 사용하는 reliability evaluation에서는 ID accuracy와 함께
-feature geometry diagnostic을 함께 보고해야 한다.
-
-Accuracy is necessary but not sufficient. In this seed0 diagnostic draft,
-ID-validation-matched models can show different calibration, raw feature OOD
-reliability, and feature geometry profiles. This suggests that optimizer/LR/WD
-choices should be evaluated not only by ID accuracy, but also by the geometry seen
-by downstream post-hoc detectors.
+Optimizer update rules can shift class-conditional feature location, dispersion,
+norm scale, and covariance structure. This is post-hoc diagnostic evidence on
+WRN-28-10/CIFAR-10 selected configs, not a causal proof or full DDU reproduction.
 ```
 
 ### Ultra-Short Version
 
 ```text
-Accuracy is necessary but not sufficient. Seed0 diagnostic evidence suggests that
-ID-validation-matched models can show different calibration, raw feature OOD
-reliability, and feature geometry profiles. This is a diagnostic signal, not a
-causal proof or seed-averaged conclusion.
+Accuracy is necessary but not sufficient. Validation-selected high-accuracy
+models can differ in calibration, feature-based OOD behavior, and feature
+distribution geometry. This is bounded post-hoc diagnostic evidence.
 ```
 
-## 3.11 Future Work
+## 3.10 Future Work
 
 ### Required Order
 
@@ -624,7 +567,7 @@ causal proof or seed-averaged conclusion.
 연속적으로 조절해, adaptive update와 norm shrinkage가 feature geometry와 OOD reliability를
 어떻게 바꾸는지 더 직접적으로 확인한다.
 
-2. Dataset / architecture expansion: CIFAR-10 WRN-28-10에서 보인 seed0 diagnostic pattern이
+2. Dataset / architecture expansion: CIFAR-10 WRN-28-10에서 보인 diagnostic pattern이
 다른 ID dataset과 architecture에서도 유지되는지 확인한다.
 
 3. SAM, Mixup 등 다른 training methods 확장: optimizer뿐 아니라 training method 선택도
@@ -646,7 +589,7 @@ feature norm, covariance scale, post-hoc OOD detector reliability를 바꿀 수 
 확인하기 위한 확장이다.
 ```
 
-## 3.12 Poster-Ready Compact Text
+## 3.11 Poster-Ready Compact Text
 
 현재 `poster/poster.tex`는 아래의 압축 원고를 우선 사용한다. 목적은 논문식
 문단을 그대로 넣는 것이 아니라, A0 포스터에서 10초 안에 논리 구조가 보이게
@@ -662,8 +605,9 @@ reliability는 별도 진단이 필요하다.
 Method: CIFAR-10 WRN-28-10을 SGD/Adam/AdamW LR-WD grid로 학습하고, ID validation
 accuracy만으로 후보를 선택했다.
 
-Finding: Seed0 draft에서 accuracy band 안에서도 ECE와 raw Mahalanobis AUROC가
-갈라지고, L2 control recovery는 norm/covariance-scale sensitivity 해석과 일관된다.
+Finding: Selected seed0/1/2 evidence에서 validation-selected high-accuracy models가
+ECE와 feature-based near-OOD AUROC에서 갈라지고, L2 control recovery는
+norm/covariance-scale sensitivity 해석과 일관된다.
 ```
 
 ### Introduction
@@ -704,17 +648,21 @@ Figure 1: Left panel은 miscalibration, right panel은 OOD acceptance를 보여�
 Claim: Update rule 차이는 마지막 표현층의 class-conditional feature distribution을 바꿀 수 있다.
 
 Mechanism sketch:
-- H | Y=k has mean mu_k and covariance Sigma_k.
-- z = W h_theta(x), s_t = W_t^T 1_K, a_t = K^{-1} ||s_t||^2.
-- CE fact: (nabla_W L_CE)^T 1_K = 0.
-- SGD/L2: s_{t+1} = (1 - eta lambda) s_t, so the classifier centering statistic contracts.
-- Adam/L2 vs AdamW: lambda W is either inside adaptive scaling or outside as
-  decoupled shrinkage, changing the feature distribution trajectory.
+- H | Y=k has center mu_k, covariance Sigma_k, anisotropy, and norm scale.
+- Mahalanobis/kNN/GMM read mu_k, Sigma_k, ||H||, and class separation.
+- z = W h_theta(x), g_t = nabla_{W_t} L_CE, s_t = W_t^T 1_K,
+  a_t = K^{-1} ||s_t||^2, and g_t^T 1_K = 0.
+- SGD/L2 mainly contracts the classifier row-sum s_t.
+- Adam/L2 and AdamW place weight decay inside or outside the adaptive direction,
+  so coordinate-wise scaling can create different centering paths.
+- Different s_t paths can support different NC2/NC3 alignment, class-mean
+  alignment, and feature-distribution geometry.
 
 Implication: Accuracy가 비슷해도 class mean separation, within-class dispersion,
-covariance scale/anisotropy, classifier-feature alignment가 달라질 수 있다.
+covariance scale/anisotropy, feature norm, classifier-feature alignment가 달라질 수 있다.
 
-Boundary: OOD reliability link is evaluated by our post-hoc diagnostics.
+Boundary: This mechanism supports optimizer-induced geometry shifts; OOD
+reliability is evaluated by the post-hoc diagnostics on the right.
 ```
 
 ### Experiment
@@ -724,58 +672,45 @@ Claim: Selection uses ID validation accuracy only.
 
 Setup:
 - ID / model: CIFAR-10 / WRN-28-10
-- Train factors: SGD, Adam, AdamW x LR-WD grid
-- Selection: ID validation accuracy only
+- Train factors: SGD, Adam, AdamW over LR-WD grid
+- Selection: no OOD/geometry metric used
 - Post-hoc diagnostics: ECE, OOD AUROC, NC1, InterDist
 - OOD datasets: CIFAR-100, TinyImageNet, SVHN, MNIST
-- Status: seed0 diagnostic draft
-```
-
-### Figure 2
-
-```text
-Read: Similar ID validation accuracy does not imply similar reliability.
-
-Evidence: Seed0 candidates in a competitive accuracy band split in ECE and raw
-Mahalanobis AUROC.
-
-Boundary: Diagnostic draft; repeated-seed summaries will replace this view.
+- Reported: seed 0/1/2 mean +/- sample std
 ```
 
 ### Table 1
 
 ```text
-Read: Raw Mahalanobis AUROC differs by OOD dataset and config.
+Read: High ID accuracy does not make calibration identical.
 
-Evidence: Confirmed seed0 representative rows show large dataset-specific drops
-for Adam/AdamW rows relative to SGD-B.
+Evidence: SGD rows have higher ID test accuracy and lower ECE; AdamW rows remain
+competitive in accuracy but require much larger temperature scaling.
 
-Boundary: The table uses four directly confirmed representative rows only. It
-does not establish seed-averaged optimizer ranking.
+Boundary: No OOD or geometry metric was used for hyperparameter selection.
+```
+
+### Figure 2
+
+```text
+Read: Feature detectors split sharply on raw features, especially for AdamW rows.
+
+Evidence: Raw Mahalanobis drops on CIFAR-100/TinyImageNet for Adam/AdamW, while
+detector-side L2 controls recover much of the ranking.
+
+Boundary: L2 normalization is a diagnostic control, not a final detector solution.
 ```
 
 ### Table 2
 
 ```text
-Read: Reliability split is accompanied by different penultimate geometry.
+Read: The detector split is accompanied by different feature distributions.
 
-Evidence: Higher NC1 indicates larger within-class spread relative to separation;
-smaller InterDist indicates weaker class-mean separation.
+Evidence: AdamW rows show smaller class-mean separation and lower feature norms;
+Adam shows larger NC1 than SGD with a much lower effective rank.
 
-Implication: Distance/covariance-based post-hoc detectors can see a different
-score landscape even when ID accuracy is similar.
-```
-
-### Figure 3
-
-```text
-Read: Raw-to-L2 recovery suggests norm/scale sensitivity.
-
-Evidence: L2-normalized controls reduce feature-scale effects while preserving
-angular information.
-
-Boundary: This is a diagnostic control, not a claim that L2 normalization is the
-final detector solution.
+Implication: Distance/covariance-based OOD scores can change because the feature
+distribution they read has changed.
 ```
 
 ### Mechanism and Conclusion
@@ -788,9 +723,9 @@ Mechanism: Raw Mahalanobis uses class means and covariance-based distance; raw
 kNN uses neighborhood distance. Both can change with feature norms, class
 separation, covariance anisotropy, and effective rank.
 
-Conclusion: Accuracy is necessary but not sufficient. ID-validation-matched
-models can show different calibration, raw feature OOD reliability, and feature
-geometry profiles. This remains seed0 diagnostic evidence.
+Conclusion: Accuracy is necessary but not sufficient. Validation-selected
+high-accuracy models can differ in calibration, feature-based OOD behavior, and
+feature distribution geometry. This remains bounded post-hoc diagnostic evidence.
 ```
 
 ### Future Work
@@ -819,5 +754,5 @@ geometry profiles. This remains seed0 diagnostic evidence.
 - `docs/research/통계학회_포스터_실험계획.md`
 - `docs/research/추가실험_승인_컨텍스트.md`
 - `docs/research/학습후_평가_집계_가이드.md`
-- `data/manifests/seed0_poster_draft_sources_20260611.md`
-- `WRN seed0 350eps grid-search 실험_0531 371a26cf6e72819bacacd14427eb6614.md`
+- `docs/research/wrn350_selected_3seed_metrics_notion_20260612.md`
+- `data/manifests/wrn350_selected_3seed_poster_assets_20260612.md`

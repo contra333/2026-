@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=2 /home/ghjin/miniconda3/envs/SAM/bin/python code/train.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_selected_350ep_seed1.yaml --out-dir /home/ghjin/iclr2027_runs/20260611_1142_curie_cifar10_standard-wrn-28-10-dropout03_adamw_lr5e-3_wd5e-4_anchor_seed1_selected_poster
